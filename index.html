@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Unicão na Feira das Profissões</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Tela inicial -->
+  <div id="startScreen">
+    <h1>Bem-vindo ao Jogo da Unigran Capital!</h1>
+    <p>Se aventure pelos nossos cursos e descubra sua jornada acadêmica!</p>
+    <button id="startButton">Iniciar Jogo</button>
+  </div>
+
+  <!-- Container do jogo -->
+  <div class="game-container" style="display:none;">
+    <h1>Unicão na Feira das Profissões</h1>
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/cursos.js"></script>
+  <script src="js/puzzles.js"></script>
+  <script src="js/relatorio.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    const startButton = document.getElementById('startButton');
+    const startScreen = document.getElementById('startScreen');
+    const gameContainer = document.querySelector('.game-container');
+
+    startButton.addEventListener('click', () => {
+      startScreen.style.display = 'none';
+      gameContainer.style.display = 'flex';
+    });
+  </script>
+</body>
+</html>

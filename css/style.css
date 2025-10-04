@@ -1,0 +1,92 @@
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: 'Kanit', Arial, sans-serif;
+  background: linear-gradient(135deg, #0066cc, #0099ff);
+  /* igual ao index */
+  color: #222;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* ===== Tela inicial ===== */
+#startScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #0066cc, #0099ff);
+  color: #fff;
+}
+
+#startScreen h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+#startScreen p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+#startButton {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 10px;
+  background: #ffcc00;
+  color: #000;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#startButton:hover {
+  background: #ffaa00;
+}
+
+/* ===== Canvas do jogo ===== */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #0066cc, #0099ff);
+  /* igual ao index */
+}
+
+.game-container h1 {
+  font-size: 2.5em;
+  color: #0055a5;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+#gameCanvas {
+  border-radius: 8px;
+  background: #0b1220;
+  max-width: 90%;
+  max-height: 70%;
+  display: block;
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 900px) {
+  .game-container h1 {
+    font-size: 2em;
+  }
+
+  #gameCanvas {
+    max-width: 95%;
+    max-height: 60%;
+  }
+}

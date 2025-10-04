@@ -1,0 +1,792 @@
+[
+  {
+    "curso": "Enfermagem",
+    "score": 0,
+    "ts": 1759508583809
+  },
+  {
+    "curso": "Direito",
+    "score": 60,
+    "ts": 1759508879955
+  },
+  {
+    "curso": "Estética e Cosmética",
+    "score": 80,
+    "ts": 1759509051861
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "score": 35,
+    "ts": 1759509079585
+  },
+  {
+    "curso": "Design de Interiores",
+    "score": 180,
+    "ts": 1759509120308
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "score": 0,
+    "ts": 1759509234461
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "score": 60,
+    "ts": 1759509452160
+  },
+  {
+    "curso": "Administração",
+    "score": 180,
+    "ts": 1759509486318
+  },
+  {
+    "curso": "Estética e Cosmética",
+    "score": 80,
+    "ts": 1759510089196
+  },
+  {
+    "curso": "Educação Física",
+    "score": 0,
+    "ts": 1759510195910
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "score": 0,
+    "ts": 1759510223817
+  },
+  {
+    "curso": "Design de Interiores",
+    "score": 180,
+    "ts": 1759510315148
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "score": 60,
+    "ts": 1759510388847
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "score": 60,
+    "ts": 1759510451450
+  },
+  {
+    "curso": "Design de Interiores",
+    "score": 180,
+    "ts": 1759510483189
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "score": 20,
+    "ts": 1759510637642
+  },
+  {
+    "curso": "Design de Interiores",
+    "score": 20,
+    "ts": 1759510667275
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "score": 20,
+    "ts": 1759511117144
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "score": 0,
+    "ts": 1759511199240
+  },
+  {
+    "curso": "Educação Física",
+    "score": 0,
+    "ts": 1759511237437
+  },
+  {
+    "curso": "Educação Física",
+    "score": 0,
+    "ts": 1759511427019
+  },
+  {
+    "curso": "Direito",
+    "score": 80,
+    "ts": 1759511453593
+  },
+  {
+    "curso": "Educação Física",
+    "score": 0,
+    "ts": 1759511475996
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "score": 80,
+    "ts": 1759511505502
+  },
+  {
+    "curso": "Educação Física",
+    "score": 0,
+    "ts": 1759511794996
+  },
+  {
+    "curso": "Fisioterapia",
+    "score": 0,
+    "ts": 1759511957407
+  },
+  {
+    "curso": "Fisioterapia",
+    "score": 0,
+    "ts": 1759512091037
+  },
+  {
+    "curso": "Enfermagem",
+    "score": 0,
+    "ts": 1759512252550
+  },
+  {
+    "curso": "Fisioterapia",
+    "score": 0,
+    "ts": 1759512515757
+  },
+  {
+    "curso": "Engenharia de Software",
+    "score": 0,
+    "ts": 1759512868161
+  },
+  {
+    "curso": "Radiologia",
+    "score": 0,
+    "ts": 1759512892121
+  },
+  {
+    "curso": "Radiologia",
+    "score": 0,
+    "ts": 1759513089659
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "score": 0,
+    "ts": 1759513112645
+  },
+  {
+    "curso": "Psicologia",
+    "score": 0,
+    "ts": 1759514303803
+  },
+  {
+    "curso": "Engenharia de Software",
+    "score": 0,
+    "ts": 1759514361317
+  },
+  {
+    "curso": "Fisioterapia",
+    "score": 0,
+    "ts": 1759514433753
+  },
+  {
+    "curso": "Publicidade",
+    "score": 0,
+    "ts": 1759514470174
+  },
+  {
+    "curso": "Direito",
+    "score": 0,
+    "ts": 1759514518876
+  },
+  {
+    "curso": "Fisioterapia",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "associacao",
+    "ts": 1759514728708
+  },
+  {
+    "curso": "Nutrição",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "associacao",
+    "ts": 1759514755646
+  },
+  {
+    "curso": "Nutrição",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "associacao",
+    "ts": 1759514787038
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "quiz",
+    "ts": 1759518057191
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "quiz",
+    "ts": 1759518852696
+  },
+  {
+    "curso": "Design de Interiores",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "associacao",
+    "ts": 1759518880602
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "formas",
+    "ts": 1759518909358
+  },
+  {
+    "curso": "Radiologia",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "quiz",
+    "ts": 1759519367433
+  },
+  {
+    "curso": "Engenharia de Software",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "validacao",
+    "ts": 1759519391158
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "quiz",
+    "ts": 1759519492323
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "scoreCurso": 0,
+    "scoreColetaveis": 10,
+    "scoreTotal": 10,
+    "modo": "formas",
+    "ts": 1759520350876
+  },
+  {
+    "curso": "Publicidade",
+    "scoreCurso": 0,
+    "scoreColetaveis": 10,
+    "scoreTotal": 10,
+    "modo": "quiz",
+    "ts": 1759520375617
+  },
+  {
+    "curso": "Design de Interiores",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "associacao",
+    "ts": 1759520736496
+  },
+  {
+    "curso": "Nutrição",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "associacao",
+    "ts": 1759520956916
+  },
+  {
+    "curso": "Design de Interiores",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "associacao",
+    "ts": 1759520999951
+  },
+  {
+    "curso": "Biomedicina",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "quiz",
+    "ts": 1759521217778
+  },
+  {
+    "curso": "Psicologia",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "associacao",
+    "ts": 1759521411711
+  },
+  {
+    "curso": "Psicologia",
+    "scoreCurso": 40,
+    "scoreColetaveis": 20,
+    "scoreTotal": 60,
+    "modo": "associacao",
+    "ts": 1759521530321
+  },
+  {
+    "curso": "Psicologia",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "associacao",
+    "ts": 1759521564358
+  },
+  {
+    "curso": "Psicologia",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "associacao",
+    "ts": 1759521605776
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "formas",
+    "ts": 1759521772904
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "formas",
+    "ts": 1759521808106
+  },
+  {
+    "curso": "Publicidade",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759522011836
+  },
+  {
+    "curso": "Design de Interiores",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "associacao",
+    "ts": 1759522268526
+  },
+  {
+    "curso": "Nutrição",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "associacao",
+    "ts": 1759522375530
+  },
+  {
+    "curso": "Nutrição",
+    "scoreCurso": 80,
+    "scoreColetaveis": 0,
+    "scoreTotal": 80,
+    "modo": "associacao",
+    "ts": 1759522704468
+  },
+  {
+    "curso": "Educação Física",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "quiz",
+    "ts": 1759523177124
+  },
+  {
+    "curso": "Enfermagem",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759523394317
+  },
+  {
+    "curso": "Psicologia",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "memoria",
+    "ts": 1759600630955
+  },
+  {
+    "curso": "Administração",
+    "scoreCurso": 140,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "ordem",
+    "ts": 1759600673400
+  },
+  {
+    "curso": "Direito",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759600704319
+  },
+  {
+    "curso": "Publicidade",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "quiz",
+    "ts": 1759600732130
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759600768694
+  },
+  {
+    "curso": "Engenharia de Software",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "validacao",
+    "ts": 1759600868742
+  },
+  {
+    "curso": "Engenharia de Software",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "validacao",
+    "ts": 1759600955528
+  },
+  {
+    "curso": "Engenharia de Software",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "validacao",
+    "ts": 1759601230093
+  },
+  {
+    "curso": "Engenharia de Software",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "validacao",
+    "ts": 1759601302716
+  },
+  {
+    "curso": "Fisioterapia",
+    "scoreCurso": 40,
+    "scoreColetaveis": 20,
+    "scoreTotal": 60,
+    "modo": "associacao",
+    "ts": 1759601393953
+  },
+  {
+    "curso": "Biomedicina",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "quiz",
+    "ts": 1759601440995
+  },
+  {
+    "curso": "Radiologia",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759601479405
+  },
+  {
+    "curso": "Psicologia",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "memoria",
+    "ts": 1759601537954
+  },
+  {
+    "curso": "Publicidade",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759601579567
+  },
+  {
+    "curso": "Engenharia de Software",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "validacao",
+    "ts": 1759606423751
+  },
+  {
+    "curso": "Arquitetura e Urbanismo",
+    "scoreCurso": 80,
+    "scoreColetaveis": 10,
+    "scoreTotal": 90,
+    "modo": "formas",
+    "ts": 1759607049021
+  },
+  {
+    "curso": "Engenharia de Software",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "memoria",
+    "ts": 1759607207860
+  },
+  {
+    "curso": "Engenharia de Software",
+    "scoreCurso": 75,
+    "scoreColetaveis": 20,
+    "scoreTotal": 95,
+    "modo": "memoria",
+    "ts": 1759607340423
+  },
+  {
+    "curso": "Engenharia de Software",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "memoria",
+    "ts": 1759607841430
+  },
+  {
+    "curso": "Direito",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "quiz",
+    "ts": 1759607897116
+  },
+  {
+    "curso": "Direito",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759608092851
+  },
+  {
+    "curso": "Direito",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "quiz",
+    "ts": 1759608294017
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759608335128
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759608455236
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "quiz",
+    "ts": 1759608654589
+  },
+  {
+    "curso": "Design de Interiores",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "associacao",
+    "ts": 1759608738597
+  },
+  {
+    "curso": "Administração",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "ordem",
+    "ts": 1759608773021
+  },
+  {
+    "curso": "Direito",
+    "scoreCurso": 40,
+    "scoreColetaveis": 20,
+    "scoreTotal": 60,
+    "modo": "quiz",
+    "ts": 1759609074877
+  },
+  {
+    "curso": "Psicologia",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "memoria",
+    "ts": 1759609124493
+  },
+  {
+    "curso": "Publicidade",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "quiz",
+    "ts": 1759609157595
+  },
+  {
+    "curso": "Publicidade",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "quiz",
+    "ts": 1759609282782
+  },
+  {
+    "curso": "Psicologia",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "memoria",
+    "ts": 1759609324947
+  },
+  {
+    "curso": "Publicidade",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "quiz",
+    "ts": 1759609665066
+  },
+  {
+    "curso": "Estética e Cosmética",
+    "scoreCurso": 80,
+    "scoreColetaveis": 10,
+    "scoreTotal": 90,
+    "modo": "memoria",
+    "ts": 1759610117556
+  },
+  {
+    "curso": "Administração",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "ordem",
+    "ts": 1759611006149
+  },
+  {
+    "curso": "Educação Física",
+    "scoreCurso": 20,
+    "scoreColetaveis": 20,
+    "scoreTotal": 40,
+    "modo": "quiz",
+    "ts": 1759611346432
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "scoreCurso": 40,
+    "scoreColetaveis": 20,
+    "scoreTotal": 60,
+    "modo": "quiz",
+    "ts": 1759611391140
+  },
+  {
+    "curso": "Direito",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "quiz",
+    "ts": 1759611427145
+  },
+  {
+    "curso": "Educação Física",
+    "scoreCurso": 20,
+    "scoreColetaveis": 20,
+    "scoreTotal": 40,
+    "modo": "quiz",
+    "ts": 1759612927751
+  },
+  {
+    "curso": "Administração",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "ordem",
+    "ts": 1759612972986
+  },
+  {
+    "curso": "Educação Física",
+    "scoreCurso": 0,
+    "scoreColetaveis": 20,
+    "scoreTotal": 20,
+    "modo": "quiz",
+    "ts": 1759613437830
+  },
+  {
+    "curso": "Administração",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "ordem",
+    "ts": 1759613467553
+  },
+  {
+    "curso": "Administração",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "ordem",
+    "ts": 1759613621686
+  },
+  {
+    "curso": "Administração",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "ordem",
+    "ts": 1759613836102
+  },
+  {
+    "curso": "Administração",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "ordem",
+    "ts": 1759615287740
+  },
+  {
+    "curso": "Psicologia",
+    "scoreCurso": 20,
+    "scoreColetaveis": 0,
+    "scoreTotal": 20,
+    "modo": "memoria",
+    "ts": 1759616764568
+  },
+  {
+    "curso": "Direito",
+    "scoreCurso": 80,
+    "scoreColetaveis": 0,
+    "scoreTotal": 80,
+    "modo": "quiz",
+    "ts": 1759619033592
+  }
+]

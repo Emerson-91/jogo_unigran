@@ -1,0 +1,75 @@
+[2025-10-03T18:05:28.708Z] curso=Fisioterapia total=20 curso=0 coletaveis=20 modo=associacao
+[2025-10-03T18:05:55.646Z] curso=Nutrição total=20 curso=0 coletaveis=20 modo=associacao
+[2025-10-03T18:06:27.038Z] curso=Nutrição total=20 curso=0 coletaveis=20 modo=associacao
+[2025-10-03T19:00:57.191Z] curso=Ciências Contábeis total=20 curso=0 coletaveis=20 modo=quiz
+[2025-10-03T19:14:12.696Z] curso=Ciências Contábeis total=20 curso=0 coletaveis=20 modo=quiz
+[2025-10-03T19:14:40.602Z] curso=Design de Interiores total=20 curso=0 coletaveis=20 modo=associacao
+[2025-10-03T19:15:09.358Z] curso=Arquitetura e Urbanismo total=20 curso=0 coletaveis=20 modo=formas
+[2025-10-03T19:22:47.433Z] curso=Radiologia total=20 curso=0 coletaveis=20 modo=quiz
+[2025-10-03T19:23:11.158Z] curso=Engenharia de Software total=20 curso=0 coletaveis=20 modo=validacao
+[2025-10-03T19:24:52.323Z] curso=Ciências Contábeis total=20 curso=0 coletaveis=20 modo=quiz
+[2025-10-03T19:39:10.876Z] curso=Arquitetura e Urbanismo total=10 curso=0 coletaveis=10 modo=formas
+[2025-10-03T19:39:35.617Z] curso=Publicidade total=10 curso=0 coletaveis=10 modo=quiz
+[2025-10-03T19:45:36.496Z] curso=Design de Interiores total=20 curso=0 coletaveis=20 modo=associacao
+[2025-10-03T19:49:16.916Z] curso=Nutrição total=20 curso=0 coletaveis=20 modo=associacao
+[2025-10-03T19:49:59.951Z] curso=Design de Interiores total=20 curso=0 coletaveis=20 modo=associacao
+[2025-10-03T19:53:37.778Z] curso=Biomedicina total=80 curso=60 coletaveis=20 modo=quiz
+[2025-10-03T19:56:51.711Z] curso=Psicologia total=100 curso=80 coletaveis=20 modo=associacao
+[2025-10-03T19:58:50.321Z] curso=Psicologia total=60 curso=40 coletaveis=20 modo=associacao
+[2025-10-03T19:59:24.358Z] curso=Psicologia total=100 curso=80 coletaveis=20 modo=associacao
+[2025-10-03T20:00:05.776Z] curso=Psicologia total=100 curso=80 coletaveis=20 modo=associacao
+[2025-10-03T20:02:52.904Z] curso=Arquitetura e Urbanismo total=100 curso=80 coletaveis=20 modo=formas
+[2025-10-03T20:03:28.106Z] curso=Arquitetura e Urbanismo total=100 curso=80 coletaveis=20 modo=formas
+[2025-10-03T20:06:51.836Z] curso=Publicidade total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-03T20:11:08.526Z] curso=Design de Interiores total=100 curso=80 coletaveis=20 modo=associacao
+[2025-10-03T20:12:55.530Z] curso=Nutrição total=100 curso=80 coletaveis=20 modo=associacao
+[2025-10-03T20:18:24.468Z] curso=Nutrição total=80 curso=80 coletaveis=0 modo=associacao
+[2025-10-03T20:26:17.124Z] curso=Educação Física total=80 curso=60 coletaveis=20 modo=quiz
+[2025-10-03T20:29:54.317Z] curso=Enfermagem total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-04T17:57:10.955Z] curso=Psicologia total=100 curso=80 coletaveis=20 modo=memoria
+[2025-10-04T17:57:53.400Z] curso=Administração total=100 curso=140 coletaveis=20 modo=ordem
+[2025-10-04T17:58:24.319Z] curso=Direito total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-04T17:58:52.130Z] curso=Publicidade total=80 curso=60 coletaveis=20 modo=quiz
+[2025-10-04T17:59:28.694Z] curso=Ciências Contábeis total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-04T18:01:08.742Z] curso=Engenharia de Software total=80 curso=60 coletaveis=20 modo=validacao
+[2025-10-04T18:02:35.528Z] curso=Engenharia de Software total=80 curso=60 coletaveis=20 modo=validacao
+[2025-10-04T18:07:10.093Z] curso=Engenharia de Software total=80 curso=60 coletaveis=20 modo=validacao
+[2025-10-04T18:08:22.716Z] curso=Engenharia de Software total=100 curso=80 coletaveis=20 modo=validacao
+[2025-10-04T18:09:53.953Z] curso=Fisioterapia total=60 curso=40 coletaveis=20 modo=associacao
+[2025-10-04T18:10:40.995Z] curso=Biomedicina total=80 curso=60 coletaveis=20 modo=quiz
+[2025-10-04T18:11:19.405Z] curso=Radiologia total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-04T18:12:17.954Z] curso=Psicologia total=100 curso=80 coletaveis=20 modo=memoria
+[2025-10-04T18:12:59.567Z] curso=Publicidade total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-04T19:33:43.751Z] curso=Engenharia de Software total=100 curso=80 coletaveis=20 modo=validacao
+[2025-10-04T19:44:09.021Z] curso=Arquitetura e Urbanismo total=90 curso=80 coletaveis=10 modo=formas
+[2025-10-04T19:46:47.860Z] curso=Engenharia de Software total=100 curso=80 coletaveis=20 modo=memoria
+[2025-10-04T19:49:00.423Z] curso=Engenharia de Software total=95 curso=75 coletaveis=20 modo=memoria
+[2025-10-04T19:57:21.430Z] curso=Engenharia de Software total=80 curso=60 coletaveis=20 modo=memoria
+[2025-10-04T19:58:17.116Z] curso=Direito total=80 curso=60 coletaveis=20 modo=quiz
+[2025-10-04T20:01:32.851Z] curso=Direito total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-04T20:04:54.017Z] curso=Direito total=20 curso=0 coletaveis=20 modo=quiz
+[2025-10-04T20:05:35.128Z] curso=Ciências Contábeis total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-04T20:07:35.236Z] curso=Ciências Contábeis total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-04T20:10:54.589Z] curso=Ciências Contábeis total=20 curso=0 coletaveis=20 modo=quiz
+[2025-10-04T20:12:18.597Z] curso=Design de Interiores total=100 curso=80 coletaveis=20 modo=associacao
+[2025-10-04T20:12:53.021Z] curso=Administração total=100 curso=80 coletaveis=20 modo=ordem
+[2025-10-04T20:17:54.877Z] curso=Direito total=60 curso=40 coletaveis=20 modo=quiz
+[2025-10-04T20:18:44.493Z] curso=Psicologia total=100 curso=80 coletaveis=20 modo=memoria
+[2025-10-04T20:19:17.595Z] curso=Publicidade total=20 curso=0 coletaveis=20 modo=quiz
+[2025-10-04T20:21:22.782Z] curso=Publicidade total=80 curso=60 coletaveis=20 modo=quiz
+[2025-10-04T20:22:04.947Z] curso=Psicologia total=100 curso=80 coletaveis=20 modo=memoria
+[2025-10-04T20:27:45.066Z] curso=Publicidade total=80 curso=60 coletaveis=20 modo=quiz
+[2025-10-04T20:35:17.556Z] curso=Estética e Cosmética total=90 curso=80 coletaveis=10 modo=memoria
+[2025-10-04T20:50:06.149Z] curso=Administração total=100 curso=80 coletaveis=20 modo=ordem
+[2025-10-04T20:55:46.432Z] curso=Educação Física total=40 curso=20 coletaveis=20 modo=quiz
+[2025-10-04T20:56:31.140Z] curso=Ciências Contábeis total=60 curso=40 coletaveis=20 modo=quiz
+[2025-10-04T20:57:07.145Z] curso=Direito total=80 curso=60 coletaveis=20 modo=quiz
+[2025-10-04T21:22:07.751Z] curso=Educação Física total=40 curso=20 coletaveis=20 modo=quiz
+[2025-10-04T21:22:52.986Z] curso=Administração total=100 curso=80 coletaveis=20 modo=ordem
+[2025-10-04T21:30:37.830Z] curso=Educação Física total=20 curso=0 coletaveis=20 modo=quiz
+[2025-10-04T21:31:07.553Z] curso=Administração total=100 curso=80 coletaveis=20 modo=ordem
+[2025-10-04T21:33:41.686Z] curso=Administração total=100 curso=80 coletaveis=20 modo=ordem
+[2025-10-04T21:37:16.102Z] curso=Administração total=100 curso=80 coletaveis=20 modo=ordem
+[2025-10-04T22:01:27.740Z] curso=Administração total=100 curso=80 coletaveis=20 modo=ordem
+[2025-10-04T22:26:04.568Z] curso=Psicologia total=20 curso=20 coletaveis=0 modo=memoria
+[2025-10-04T23:03:53.592Z] curso=Direito total=80 curso=80 coletaveis=0 modo=quiz
