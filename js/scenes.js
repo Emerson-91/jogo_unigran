@@ -19,7 +19,7 @@ function fase1(ctx, player, changeScene, canvas) {
 
   // Prédio de chegada
   ctx.fillStyle = "brown";
-  ctx.fillRect(canvas.width - 100, canvas.height - groundH - 150, 100, 150);
+  ctx.fillRect(canvas.width - 190, canvas.height - groundH - 75, 100, 75);
 
   ctx.fillStyle = "black";
   ctx.font = "20px Arial";
@@ -49,7 +49,7 @@ function fase1(ctx, player, changeScene, canvas) {
   }
   player.draw(ctx);
 
-  if (colide(player, { x: canvas.width - 100, y: canvas.height - groundH - 150, w: 100, h: 150 })) {
+  if (colide(player, { x: canvas.width - 100, y: canvas.height - groundH - 75, w: 100, h: 75 })) {
     changeScene("fasePredio");
   }
 }
