@@ -828,5 +828,37 @@
     "scoreTotal": 80,
     "modo": "quiz",
     "ts": 1759625501923
+  },
+  {
+    "curso": "Psicologia",
+    "scoreCurso": 35,
+    "scoreColetaveis": 20,
+    "scoreTotal": 55,
+    "modo": "memoria",
+    "ts": 1759630076201
+  },
+  {
+    "curso": "Administração",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "ordem",
+    "ts": 1759672363842
+  },
+  {
+    "curso": "Ciências Contábeis",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759673934472
+  },
+  {
+    "curso": "Radiologia",
+    "scoreCurso": 40,
+    "scoreColetaveis": 20,
+    "scoreTotal": 60,
+    "modo": "quiz",
+    "ts": 1759673958087
   }
 ]

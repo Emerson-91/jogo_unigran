@@ -78,3 +78,7 @@
 [2025-10-05T00:21:22.009Z] curso=Engenharia de Software total=55 curso=35 coletaveis=20 modo=memoria
 [2025-10-05T00:24:32.920Z] curso=Design de Interiores total=100 curso=80 coletaveis=20 modo=associacao
 [2025-10-05T00:51:41.923Z] curso=Publicidade total=80 curso=60 coletaveis=20 modo=quiz
+[2025-10-05T02:07:56.201Z] curso=Psicologia total=55 curso=35 coletaveis=20 modo=memoria
+[2025-10-05T13:52:43.842Z] curso=Administração total=100 curso=80 coletaveis=20 modo=ordem
+[2025-10-05T14:18:54.472Z] curso=Ciências Contábeis total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-05T14:19:18.087Z] curso=Radiologia total=60 curso=40 coletaveis=20 modo=quiz

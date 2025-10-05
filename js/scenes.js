@@ -1,3 +1,41 @@
+// Cache para animação gifler
+const giflerCache = {};
+
+// Carregamento global do NPC default
+const npcDefaultImg = new Image();
+npcDefaultImg.src = "assets/npcs/npc_default.png";
+let npcDefaultLoaded = false;
+npcDefaultImg.onload = () => { npcDefaultLoaded = true; };
+
+const NPC_IMAGES = {
+  "Administração": "assets/npcs/npc_admin.png",
+  "Direito": "assets/npcs/npc_direito.png",
+  "Psicologia": "assets/npcs/npc_psicologia.png",
+  "Publicidade": "assets/npcs/npc_publicidade.png",
+  "Arquitetura e Urbanismo": "assets/npcs/npc_arquitetura.png",
+  "Ciências Contábeis": "assets/npcs/npc_contabeis.png",
+  "Design de Interiores": "assets/npcs/npc_design.png",
+  "Engenharia de Software": "assets/npcs/npc_software.png",
+  "Estética e Cosmética": "assets/npcs/npc_estetica.png",
+  "Biomedicina": "assets/npcs/npc_biomedicina.png",
+  "Educação Física": "assets/npcs/npc_edfisica.gif",
+  "Enfermagem": "assets/npcs/npc_enfermagem.png",
+  "Fisioterapia": "assets/npcs/npc_fisioterapia.png",
+  "Nutrição": "assets/npcs/npc_nutricao.png",
+  "Radiologia": "assets/npcs/npc_radiologia.png"
+};
+
+let npcFrame = 0;
+let npcFrameTimer = Date.now();
+let itemFrame = 0;
+let itemFrameTimer = Date.now();
+const itemImgs = [
+  new Image(),
+  new Image()
+];
+itemImgs[0].src = "assets/item1.png";
+itemImgs[1].src = "assets/item2.png";
+
 function fase1(ctx, player, changeScene, canvas) {
   // --- Background com imagem ---
   const bgImg = new Image();
@@ -25,14 +63,40 @@ function fase1(ctx, player, changeScene, canvas) {
   ctx.font = "20px Arial";
   ctx.fillText("Chegue ao prédio →", 50, 50);
 
-  // ITENS FLUTUANDO (sem plataformas)
+  // ====== ITENS FLUTUANDO ANIMADOS E MAIORES ======
   if (!window.collectedItems) window.collectedItems = { i1: false, i2: false };
-  ctx.fillStyle = "#FDB515";
+
+  // Tamanho maior dos itens
+  const itemW = 40, itemH = 40;
+
   // Posição dos itens flutuando
-  const item1 = { x: 300, y: canvas.height - groundH - 120, w: 20, h: 20 };
-  const item2 = { x: 600, y: canvas.height - groundH - 80, w: 20, h: 20 };
-  if (!window.collectedItems.i1) ctx.fillRect(item1.x, item1.y, item1.w, item1.h);
-  if (!window.collectedItems.i2) ctx.fillRect(item2.x, item2.y, item2.w, item2.h);
+  const item1 = { x: 300, y: canvas.height - groundH - 120, w: itemW, h: itemH };
+  const item2 = { x: 600, y: canvas.height - groundH - 80, w: itemW, h: itemH };
+
+  // Alterna o frame a cada 400ms
+  if (Date.now() - itemFrameTimer > 400) {
+    itemFrame = (itemFrame + 1) % itemImgs.length;
+    itemFrameTimer = Date.now();
+  }
+
+  if (!window.collectedItems.i1) {
+    const img = itemImgs[itemFrame];
+    if (img.complete && img.naturalWidth > 0) {
+      ctx.drawImage(img, item1.x, item1.y, item1.w, item1.h);
+    } else {
+      ctx.fillStyle = "#FDB515";
+      ctx.fillRect(item1.x, item1.y, item1.w, item1.h);
+    }
+  }
+  if (!window.collectedItems.i2) {
+    const img = itemImgs[itemFrame];
+    if (img.complete && img.naturalWidth > 0) {
+      ctx.drawImage(img, item2.x, item2.y, item2.w, item2.h);
+    } else {
+      ctx.fillStyle = "#FDB515";
+      ctx.fillRect(item2.x, item2.y, item2.w, item2.h);
+    }
+  }
 
   // colisão rudimentar com chão
   player.updatePlataforma(canvas.height - groundH); // base do chão
@@ -49,7 +113,7 @@ function fase1(ctx, player, changeScene, canvas) {
   }
   player.draw(ctx);
 
-  if (colide(player, { x: canvas.width - 100, y: canvas.height - groundH - 75, w: 100, h: 75 })) {
+  if (colide(player, { x: canvas.width - 190, y: canvas.height - groundH - 75, w: 100, h: 75 })) {
     changeScene("fasePredio");
   }
 }
@@ -85,7 +149,7 @@ function fasePredio(ctx, player, changeScene, canvas) {
 }
 
 // Exemplo para qualquer diálogo
-function dialogoPadrao(ctx, avatarLabel, npcLabel, textoBalao, botoesArray, canvas) {
+function dialogoPadrao(ctx, avatarLabel, npcLabel, textoBalao, botoesArray, canvas, curso = null) {
   ctx.fillStyle = "rgba(0,0,0,0.5)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -94,9 +158,16 @@ function dialogoPadrao(ctx, avatarLabel, npcLabel, textoBalao, botoesArray, canv
   const balaoW = 500, balaoH = 220;
   const yBase = 180;
 
-  // Jogador à esquerda
-  ctx.fillStyle = "#0053A0";
-  ctx.fillRect(120, yBase, avatarW, avatarH);
+  // Imagem do personagem à esquerda
+  const unicaoImg = new Image();
+  unicaoImg.src = "assets/unicaoTalk.png";
+  if (unicaoImg.complete && unicaoImg.naturalWidth > 0) {
+    ctx.drawImage(unicaoImg, 120, yBase, avatarW, avatarH);
+  } else {
+    unicaoImg.onload = () => {
+      ctx.drawImage(unicaoImg, 120, yBase, avatarW, avatarH);
+    };
+  }
   ctx.fillStyle = "#fff";
   ctx.font = "18px PressStart2P-Regular";
   ctx.textAlign = "center";
@@ -113,13 +184,23 @@ function dialogoPadrao(ctx, avatarLabel, npcLabel, textoBalao, botoesArray, canv
     { radius: 20, padding: 24, fontSize: 18, bgColor: "#fff", borderColor: "#0053A0", textColor: "#00315E", textAlign: "center" }
   );
 
-  // NPC à direita
-  ctx.fillStyle = "#FDB515";
-  ctx.fillRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
+  // Imagem do NPC à direita (específico do curso)
+  let npcImgSrc = "assets/npcs/npc_default.png";
+  if (curso && NPC_IMAGES[curso]) npcImgSrc = NPC_IMAGES[curso];
+  const npcImg = new Image();
+  npcImg.src = npcImgSrc;
+  const npcX = canvas.width - 120 - avatarW;
+  if (npcImg.complete && npcImg.naturalWidth > 0) {
+    ctx.drawImage(npcImg, npcX, yBase, avatarW, avatarH);
+  } else {
+    npcImg.onload = () => {
+      ctx.drawImage(npcImg, npcX, yBase, avatarW, avatarH);
+    };
+  }
   ctx.fillStyle = "#fff";
   ctx.font = "18px PressStart2P-Regular";
   ctx.textAlign = "center";
-  ctx.fillText(npcLabel, canvas.width - 120 - avatarW / 2, yBase + avatarH + 24);
+  ctx.fillText(npcLabel, npcX + avatarW / 2, yBase + avatarH + 24);
 
   // Botões lado a lado, com espaçamento
   const btnY = yBase + balaoH + 40;
@@ -433,16 +514,32 @@ function desenharPortaisSaguao(ctx, player, changeScene, canvas, cursos, hubScen
   cursos.forEach((curso, idx) => {
     const p = posicoes[idx];
     // Portal
-    ctx.fillStyle = azul;
+    ctx.fillStyle = "#0053A0";
     ctx.fillRect(p.x, p.y, portalW, portalH);
 
-    // NPC
-    ctx.fillStyle = dourado;
-    ctx.fillRect(p.npcX, p.npcY, npcW, npcH);
+    let desenhou = false;
+    let npcImgSrc = (typeof NPC_IMAGES !== "undefined" && NPC_IMAGES[curso.nome])
+      ? NPC_IMAGES[curso.nome]
+      : "assets/npcs/npc_default.png";
 
-    // Rótulo do curso (sempre voltado para dentro)
+    let npcImg = new Image();
+    npcImg.src = npcImgSrc;
+    if (npcImg.complete && npcImg.naturalWidth > 0) {
+      ctx.drawImage(npcImg, p.npcX, p.npcY, npcW, npcH);
+      desenhou = true;
+    } else {
+      npcImg.onload = () => {
+        ctx.drawImage(npcImg, p.npcX, p.npcY, npcW, npcH);
+      };
+    }
+    if (!desenhou) {
+      ctx.fillStyle = "#FDB515";
+      ctx.fillRect(p.npcX, p.npcY, npcW, npcH);
+    }
+
+    // Rótulo do curso
     ctx.fillStyle = "#00315E";
-    ctx.font = "16px Arial";
+    ctx.font = "16px 'PressStart2P-Regular'";
     let labelX = p.x, labelY = p.y - 10;
     if (p.npcDir === 'right') labelX = p.x + portalW + 20;
     if (p.npcDir === 'left') labelX = p.x - 80;
@@ -459,62 +556,36 @@ function desenharPortaisSaguao(ctx, player, changeScene, canvas, cursos, hubScen
   player.draw(ctx);
 }
 
+// Para cada NPC, desenhe o GIF animado apenas uma vez
+function desenharGifNPC(npcImgSrc, ctx, x, y, w, h, key) {
+  if (!giflerCache[key]) {
+    gifler(npcImgSrc).get(function (anim) {
+      giflerCache[key] = anim;
+    });
+    // Enquanto não carrega, desenhe um quadrado laranja
+    ctx.fillStyle = "#FDB515";
+    ctx.fillRect(x, y, w, h);
+  } else {
+    // Sempre chama animate a cada frame!
+    giflerCache[key].animate(ctx, { x, y, width: w, height: h });
+  }
+}
+
 function dialogoCurso(ctx, changeScene, canvas) {
   const dlg = window.currentCursoDialog;
   if (!dlg) return;
-
-  ctx.fillStyle = "rgba(0,83,160,0.5)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  // Layout 3 colunas
-  const avatarW = 100, avatarH = 120;
-  const balaoW = 500, balaoH = 220; // aumente o tamanho do balão
-  const yBase = 180;
-
-  // Jogador à esquerda
-  ctx.fillStyle = "#0053A0";
-  ctx.fillRect(120, yBase, avatarW, avatarH);
-  ctx.fillStyle = "#fff";
-  ctx.font = "16px Arial";
-  ctx.fillText("Você", 140, yBase + avatarH + 20);
-
-  // Balão centralizado
-  ctx.fillStyle = "#fff";
-  ctx.strokeStyle = "#0053A0";
-  ctx.lineWidth = 3;
-  ctx.fillRect((canvas.width - balaoW) / 2, yBase, balaoW, balaoH);
-  ctx.strokeRect((canvas.width - balaoW) / 2, yBase, balaoW, balaoH);
-  ctx.fillStyle = "#00315E";
-  ctx.font = "22px Arial";
-  ctx.textAlign = "center";
-  ctx.fillText(dlg.curso, canvas.width / 2, yBase + 40);
-  ctx.font = "16px Arial";
-  ctx.textAlign = "left";
-  // Ajuste: wrapText dentro do balão, com margens
-  wrapText(
+  dialogoPadrao(
     ctx,
-    EXPLICACOES_PORTAL[dlg.curso] || dlg.descricao,
-    (canvas.width - balaoW) / 2 + 24,
-    yBase + 70,
-    balaoW - 48,
-    22
+    "Você",
+    "Coordenador",
+    `${dlg.curso}\n${EXPLICACOES_PORTAL[dlg.curso] || dlg.descricao}`,
+    [
+      { texto: "Entrar", acao: () => { window.currentCursoName = dlg.curso; changeScene("curso"); } },
+      { texto: "Voltar", acao: () => changeScene(dlg.hubScene) }
+    ],
+    canvas,
+    dlg.curso // <-- passa o nome do curso para pegar o NPC correto
   );
-
-  // NPC à direita
-  ctx.fillStyle = "#FDB515";
-  ctx.fillRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
-  ctx.fillStyle = "#fff";
-  ctx.font = "16px Arial";
-  ctx.fillText("Coordenador", canvas.width - 120 - avatarW + 2, yBase + avatarH + 20);
-
-  // Botões abaixo do balão
-  criarBotao(ctx, canvas.width / 2 - 120, yBase + balaoH + 30, 150, 50, "Entrar", () => {
-    window.currentCursoName = dlg.curso;
-    changeScene("curso");
-  });
-  criarBotao(ctx, canvas.width / 2 + 20, yBase + balaoH + 30, 150, 50, "Voltar", () => {
-    changeScene(dlg.hubScene);
-  });
 }
 
 function dialogoCursoInfo(ctx, changeScene, canvas) {
@@ -533,10 +604,11 @@ function dialogoCursoInfo(ctx, changeScene, canvas) {
   ctx.fillStyle = "#0053A0";
   ctx.fillRect(120, yBase, avatarW, avatarH);
   ctx.fillStyle = "#fff";
-  ctx.font = "16px Arial";
-  ctx.fillText("Você", 140, yBase + avatarH + 20);
+  ctx.font = "18px PressStart2P-Regular";
+  ctx.textAlign = "center";
+  ctx.fillText("Você", 120 + avatarW / 2, yBase + avatarH + 24);
 
-  // Balão centralizado
+  // Balão centralizado com cantos arredondados
   drawSpeechBubble(
     ctx,
     (canvas.width - balaoW) / 2,
@@ -544,22 +616,24 @@ function dialogoCursoInfo(ctx, changeScene, canvas) {
     balaoW,
     balaoH,
     `${curso}\n${descricao}`,
-    { radius: 18, padding: 18, fontSize: 18, bgColor: "#fff", borderColor: "#0053A0", textColor: "#00315E" }
+    { radius: 20, padding: 24, fontSize: 18, bgColor: "#fff", borderColor: "#0053A0", textColor: "#00315E", textAlign: "center", fontFamily: "PressStart2P-Regular" }
   );
 
   // NPC à direita
   ctx.fillStyle = "#FDB515";
   ctx.fillRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
   ctx.fillStyle = "#fff";
-  ctx.font = "16px Arial";
-  ctx.fillText("Coordenador", canvas.width - 120 - avatarW + 2, yBase + avatarH + 20);
+  ctx.font = "18px PressStart2P-Regular";
+  ctx.textAlign = "center";
+  ctx.fillText("Coordenador", canvas.width - 120 - avatarW / 2, yBase + avatarH + 24);
 
   // Botões lado a lado, com espaçamento
   const btnY = yBase + balaoH + 40;
-  criarBotao(ctx, canvas.width / 2 - 170, btnY, 150, 50, "Iniciar Puzzle", () => {
+  const btnW = 150, btnH = 54, btnGap = 40;
+  criarBotao(ctx, canvas.width / 2 - btnW - btnGap / 2, btnY, btnW, btnH, "Iniciar Puzzle", () => {
     changeScene("puzzle");
   });
-  criarBotao(ctx, canvas.width / 2 + 20, btnY, 150, 50, "Voltar", () => {
+  criarBotao(ctx, canvas.width / 2 + btnGap / 2, btnY, btnW, btnH, "Voltar", () => {
     changeScene(cursoParaHub(curso));
   });
 }
@@ -642,3 +716,4 @@ function cenaFim(ctx, canvas) {
     }, 4000);
   }
 }
+
