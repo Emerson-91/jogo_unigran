@@ -11,7 +11,6 @@ let scene = "start";
 
 // Mapeamento de backgrounds animados
 const BACKGROUNDS = {
-  fase1: ['assets/bg_fase1_1.png', 'assets/bg_fase1_2.png'],
   fasePredio: ['assets/bg_predio_1.png', 'assets/bg_predio_2.png'],
   hubExatas: ['assets/bg_exatas_1.png', 'assets/bg_exatas_2.png'],
   hubHumanas: ['assets/bg_humanas_1.png', 'assets/bg_humanas_2.png'],

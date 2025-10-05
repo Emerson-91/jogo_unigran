@@ -1,59 +1,55 @@
 function fase1(ctx, player, changeScene, canvas) {
-  let groundY = canvas.height - 100;
+  // --- Background com imagem ---
+  const bgImg = new Image();
+  bgImg.src = "assets/fase1.png";
+  if (bgImg.complete && bgImg.naturalWidth > 0) {
+    ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+  } else {
+    bgImg.onload = () => {
+      ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+    };
+    ctx.fillStyle = "#87CEEB";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
 
-  ctx.fillStyle = "#87CEEB";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // Adiciona um pouco de ground na base
+  const groundH = 10;
+  ctx.fillStyle = "#7a7a7aff";
+  ctx.fillRect(0, canvas.height - groundH, canvas.width, groundH);
 
-  ctx.fillStyle = "green";
-  ctx.fillRect(0, groundY, canvas.width, 100);
-
+  // Prédio de chegada
   ctx.fillStyle = "brown";
-  ctx.fillRect(canvas.width - 100, groundY - 150, 100, 150);
+  ctx.fillRect(canvas.width - 100, canvas.height - groundH - 150, 100, 150);
 
   ctx.fillStyle = "black";
   ctx.font = "20px Arial";
   ctx.fillText("Chegue ao prédio →", 50, 50);
 
-  // plataformas simples
-  const plataforma = { x: 200, y: groundY - 60, w: 160, h: 20 };
-  const plataforma2 = { x: 420, y: groundY - 120, w: 160, h: 20 };
-  ctx.fillStyle = "#8B4513";
-  ctx.fillRect(plataforma.x, plataforma.y, plataforma.w, plataforma.h);
-  ctx.fillRect(plataforma2.x, plataforma2.y, plataforma2.w, plataforma2.h);
-
-  // itens colecionáveis (+10 cada, máximo +20)
+  // ITENS FLUTUANDO (sem plataformas)
   if (!window.collectedItems) window.collectedItems = { i1: false, i2: false };
   ctx.fillStyle = "#FDB515";
-  if (!window.collectedItems.i1) ctx.fillRect(plataforma.x + 60, plataforma.y - 20, 20, 20);
-  if (!window.collectedItems.i2) ctx.fillRect(plataforma2.x + 60, plataforma2.y - 20, 20, 20);
+  // Posição dos itens flutuando
+  const item1 = { x: 300, y: canvas.height - groundH - 120, w: 20, h: 20 };
+  const item2 = { x: 600, y: canvas.height - groundH - 80, w: 20, h: 20 };
+  if (!window.collectedItems.i1) ctx.fillRect(item1.x, item1.y, item1.w, item1.h);
+  if (!window.collectedItems.i2) ctx.fillRect(item2.x, item2.y, item2.w, item2.h);
 
-  // colisão rudimentar com plataformas
-  const prevY = player.y;
-  player.updatePlataforma(groundY);
-  // suporte sobre plataformas
-  [plataforma, plataforma2].forEach(p => {
-    const feetY = player.y + player.h;
-    const wasAbove = prevY + player.h <= p.y;
-    if (player.x + player.w > p.x && player.x < p.x + p.w && feetY >= p.y && feetY <= p.y + 10 && wasAbove) {
-      player.y = p.y - player.h;
-      player.velY = 0;
-      player.jumping = false;
-    }
-  });
+  // colisão rudimentar com chão
+  player.updatePlataforma(canvas.height - groundH); // base do chão
 
-  // coleta
+  // coleta dos itens flutuantes
   if (!window.globalScore) window.globalScore = 0;
-  if (!window.collectedItems.i1 && colide(player, { x: plataforma.x + 60, y: plataforma.y - 20, w: 20, h: 20 })) {
+  if (!window.collectedItems.i1 && colide(player, item1)) {
     window.collectedItems.i1 = true;
     window.globalScore = Math.min(20, (window.globalScore || 0) + 10);
   }
-  if (!window.collectedItems.i2 && colide(player, { x: plataforma2.x + 60, y: plataforma2.y - 20, w: 20, h: 20 })) {
+  if (!window.collectedItems.i2 && colide(player, item2)) {
     window.collectedItems.i2 = true;
     window.globalScore = Math.min(20, (window.globalScore || 0) + 10);
   }
   player.draw(ctx);
 
-  if (colide(player, { x: canvas.width - 100, y: groundY - 150, w: 100, h: 150 })) {
+  if (colide(player, { x: canvas.width - 100, y: canvas.height - groundH - 150, w: 100, h: 150 })) {
     changeScene("fasePredio");
   }
 }
@@ -74,11 +70,11 @@ function fasePredio(ctx, player, changeScene, canvas) {
   ctx.fillStyle = "blue";
   ctx.fillRect(npcX, npcY, npcW, npcH);
 
-  // Texto estilizado e maior
-  ctx.font = "bold 38px Kanit, Arial, sans-serif";
+  // Texto estilizado e maior 
+  ctx.font = "bold 18px Kanit, PressStart2P-Regular, sans-serif";
   ctx.fillStyle = "#0053A0";
   ctx.textAlign = "center";
-  ctx.fillText("Fale com o npc da primeira cena →", canvas.width / 2, 100);
+  ctx.fillText("Fale com o Recepcionista", canvas.width / 2, 100);
 
   player.updatePlataforma(groundY);
   player.draw(ctx);
@@ -88,7 +84,54 @@ function fasePredio(ctx, player, changeScene, canvas) {
   }
 }
 
-// Exemplo para dialogoNPC
+// Exemplo para qualquer diálogo
+function dialogoPadrao(ctx, avatarLabel, npcLabel, textoBalao, botoesArray, canvas) {
+  ctx.fillStyle = "rgba(0,0,0,0.5)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Layout 3 colunas
+  const avatarW = 100, avatarH = 120;
+  const balaoW = 500, balaoH = 220;
+  const yBase = 180;
+
+  // Jogador à esquerda
+  ctx.fillStyle = "#0053A0";
+  ctx.fillRect(120, yBase, avatarW, avatarH);
+  ctx.fillStyle = "#fff";
+  ctx.font = "18px PressStart2P-Regular";
+  ctx.textAlign = "center";
+  ctx.fillText(avatarLabel, 120 + avatarW / 2, yBase + avatarH + 24);
+
+  // Balão centralizado
+  drawSpeechBubble(
+    ctx,
+    (canvas.width - balaoW) / 2,
+    yBase,
+    balaoW,
+    balaoH,
+    textoBalao,
+    { radius: 20, padding: 24, fontSize: 18, bgColor: "#fff", borderColor: "#0053A0", textColor: "#00315E", textAlign: "center" }
+  );
+
+  // NPC à direita
+  ctx.fillStyle = "#FDB515";
+  ctx.fillRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
+  ctx.fillStyle = "#fff";
+  ctx.font = "18px PressStart2P-Regular";
+  ctx.textAlign = "center";
+  ctx.fillText(npcLabel, canvas.width - 120 - avatarW / 2, yBase + avatarH + 24);
+
+  // Botões lado a lado, com espaçamento
+  const btnY = yBase + balaoH + 40;
+  const btnW = 150, btnH = 54, btnGap = 40;
+  const totalBtns = botoesArray.length;
+  const totalWidth = totalBtns * btnW + (totalBtns - 1) * btnGap;
+  let startX = canvas.width / 2 - totalWidth / 2;
+  botoesArray.forEach((btn, i) => {
+    criarBotao(ctx, startX + i * (btnW + btnGap), btnY, btnW, btnH, btn.texto, btn.acao);
+  });
+}
+
 function dialogoNPC(ctx, changeScene, canvas) {
   ctx.fillStyle = "rgba(0,0,0,0.5)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -102,7 +145,7 @@ function dialogoNPC(ctx, changeScene, canvas) {
   ctx.fillStyle = "#0053A0";
   ctx.fillRect(120, yBase, avatarW, avatarH);
   ctx.fillStyle = "#fff";
-  ctx.font = "16px Arial";
+  ctx.font = "16px PressStart2P-Regular";
   ctx.fillText("Você", 140, yBase + avatarH + 20);
 
   // Balão centralizado usando drawSpeechBubble
@@ -120,7 +163,7 @@ function dialogoNPC(ctx, changeScene, canvas) {
   ctx.fillStyle = "#FDB515";
   ctx.fillRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
   ctx.fillStyle = "#fff";
-  ctx.font = "16px Arial";
+  ctx.font = "16px PressStart2P-Regular";
   ctx.fillText("NPC", canvas.width - 120 - avatarW + 20, yBase + avatarH + 20);
 
   // Botões abaixo do balão
@@ -133,18 +176,42 @@ function explicacaoArea(ctx, changeScene, canvas, titulo, texto, destinoHub) {
   ctx.fillStyle = "rgba(0,0,0,0.5)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "white";
-  ctx.fillRect(150, 100, 700, 350);
+  // Layout 3 colunas
+  const avatarW = 100, avatarH = 120;
+  const balaoW = 500, balaoH = 220;
+  const yBase = 180;
 
-  ctx.fillStyle = "black";
-  ctx.font = "26px Arial";
-  ctx.fillText(titulo, 180, 150);
+  // Jogador à esquerda
+  ctx.fillStyle = "#0053A0";
+  ctx.fillRect(120, yBase, avatarW, avatarH);
+  ctx.fillStyle = "#fff";
+  ctx.font = "18px PressStart2P-Regular";
+  ctx.textAlign = "center";
+  ctx.fillText("Você", 120 + avatarW / 2, yBase + avatarH + 24);
 
-  ctx.font = "18px Arial";
-  wrapText(ctx, texto, 180, 190, 640, 22);
+  // Balão centralizado
+  drawSpeechBubble(
+    ctx,
+    (canvas.width - balaoW) / 2,
+    yBase,
+    balaoW,
+    balaoH,
+    `${titulo}\n${texto}`,
+    { radius: 20, padding: 24, fontSize: 18, bgColor: "#fff", borderColor: "#0053A0", textColor: "#00315E", textAlign: "center" }
+  );
 
-  criarBotao(ctx, 250, 380, 150, 50, "Selecionar", () => changeScene(destinoHub));
-  criarBotao(ctx, 500, 380, 150, 50, "Voltar", () => changeScene("dialogoNPC"));
+  // NPC1 à direita
+  ctx.fillStyle = "#FDB515";
+  ctx.fillRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
+  ctx.fillStyle = "#fff";
+  ctx.font = "18px PressStart2P-Regular";
+  ctx.textAlign = "center";
+  ctx.fillText("NPC1", canvas.width - 120 - avatarW / 2, yBase + avatarH + 24);
+
+  // Botões lado a lado, com espaçamento
+  const btnY = yBase + balaoH + 40;
+  criarBotao(ctx, canvas.width / 2 - 100, btnY, 150, 50, "Selecionar", () => changeScene(destinoHub));
+  criarBotao(ctx, canvas.width / 2 + 70, btnY, 150, 50, "Voltar", () => changeScene("dialogoNPC"));
 }
 
 function hub(ctx, player, changeScene, canvas) {
@@ -153,14 +220,14 @@ function hub(ctx, player, changeScene, canvas) {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = "black";
-  ctx.font = "20px Arial";
+  ctx.font = "20px PressStart2P-Regular";
   ctx.fillText("Hub - Escolha seu curso", 50, 50);
 
   player.updateLivre(canvas);
   player.draw(ctx);
 
   // exemplo de portal
-  let portalX = 200, portalY = 200, pw = 80, ph = 120;
+  let portalX = 80, portalY = 80, pw = 80, ph = 120;
   ctx.fillStyle = "purple";
   ctx.fillRect(portalX, portalY, pw, ph);
 
@@ -544,18 +611,20 @@ function cenaFim(ctx, canvas) {
   const cardY = 110;
   ctx.fillRect(cardX, cardY, cardW, cardH);
 
+  // ===== Parabéns centralizado e letras maiores =====
   ctx.fillStyle = "#00315E";
-  ctx.font = "36px Arial";
-  ctx.fillText("Parabéns!", cardX + 40, cardY + 60);
+  ctx.font = "bold 64px Arial";
+  ctx.textAlign = "center";
+  ctx.fillText("Parabéns!", canvas.width / 2, cardY + 100);
 
-  ctx.font = "22px Arial";
-  ctx.fillText(`Você concluiu o puzzle!`, cardX + 40, cardY + 100);
-  ctx.fillText(`Pontuação: ${totalScore}`, cardX + 40, cardY + 140);
+  ctx.font = "28px Arial";
+  ctx.fillText(`Você concluiu o puzzle!`, canvas.width / 2, cardY + 160);
+  ctx.fillText(`Pontuação: ${totalScore}`, canvas.width / 2, cardY + 210);
 
   if (totalScore >= 100) {
     ctx.fillStyle = "#008f5a";
-    ctx.font = "22px Arial";
-    ctx.fillText("Parabéns! Você acertou tudo e ganhou um brinde especial!", cardX + 40, cardY + 180);
+    ctx.font = "24px Arial";
+    ctx.fillText("Parabéns! Você acertou tudo e ganhou um brinde especial!", canvas.width / 2, cardY + 260);
   }
 
   // Botão para voltar ao hub da área do curso atual

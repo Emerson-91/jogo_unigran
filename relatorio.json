@@ -788,5 +788,45 @@
     "scoreTotal": 80,
     "modo": "quiz",
     "ts": 1759619033592
+  },
+  {
+    "curso": "Administração",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "ordem",
+    "ts": 1759622800840
+  },
+  {
+    "curso": "Direito",
+    "scoreCurso": 20,
+    "scoreColetaveis": 0,
+    "scoreTotal": 20,
+    "modo": "quiz",
+    "ts": 1759623492386
+  },
+  {
+    "curso": "Engenharia de Software",
+    "scoreCurso": 35,
+    "scoreColetaveis": 20,
+    "scoreTotal": 55,
+    "modo": "memoria",
+    "ts": 1759623682009
+  },
+  {
+    "curso": "Design de Interiores",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "associacao",
+    "ts": 1759623872920
+  },
+  {
+    "curso": "Publicidade",
+    "scoreCurso": 60,
+    "scoreColetaveis": 20,
+    "scoreTotal": 80,
+    "modo": "quiz",
+    "ts": 1759625501923
   }
 ]

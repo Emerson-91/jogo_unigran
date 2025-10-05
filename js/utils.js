@@ -1,5 +1,6 @@
 const canvas = document.getElementById("gameCanvas");
 let botoes = [];
+let hoverBtnIndex = -1;
 
 // Normaliza coordenadas do mouse para o tamanho real do canvas
 function getMousePos(e) {
@@ -12,10 +13,28 @@ function getMousePos(e) {
   };
 }
 
+canvas.addEventListener("mousemove", (e) => {
+  const mouse = getMousePos(e);
+  hoverBtnIndex = -1;
+  botoes.forEach((btn, idx) => {
+    if (
+      mouse.x > btn.x && mouse.x < btn.x + btn.w &&
+      mouse.y > btn.y && mouse.y < btn.y + btn.h
+    ) {
+      hoverBtnIndex = idx;
+    }
+  });
+});
+
 function criarBotao(ctx, x, y, w, h, texto, acao) {
   const azul = "#0053A0";
+  const azulHover = "#1976d2";
   const dourado = "#FDB515";
   const radius = 18;
+
+  // Detecta se está em hover
+  let idx = botoes.length;
+  let isHover = idx === hoverBtnIndex;
 
   // Retângulo arredondado
   ctx.save();
@@ -30,7 +49,7 @@ function criarBotao(ctx, x, y, w, h, texto, acao) {
   ctx.lineTo(x, y + radius);
   ctx.quadraticCurveTo(x, y, x + radius, y);
   ctx.closePath();
-  ctx.fillStyle = azul;
+  ctx.fillStyle = isHover ? azulHover : azul;
   ctx.fill();
   ctx.strokeStyle = dourado;
   ctx.lineWidth = 3;
@@ -38,7 +57,7 @@ function criarBotao(ctx, x, y, w, h, texto, acao) {
 
   // Texto centralizado
   ctx.fillStyle = "#ffffff";
-  ctx.font = "20px Arial";
+  ctx.font = "20px 'Arial'";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillText(texto, x + w / 2, y + h / 2);
