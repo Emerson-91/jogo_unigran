@@ -11,7 +11,7 @@ let scene = "start";
 
 // Mapeamento de backgrounds animados
 const BACKGROUNDS = {
-  fasePredio: ['assets/bg_predio_1.png', 'assets/bg_predio_2.png'],
+  fasePredio: ['assets/bg_predio_1.png'],
   hubExatas: ['assets/bg_exatas_1.png', 'assets/bg_exatas_2.png'],
   hubHumanas: ['assets/bg_humanas_1.png', 'assets/bg_humanas_2.png'],
   hubBiologicas: ['assets/bg_bio_1.png', 'assets/bg_bio_2.png'],
@@ -84,19 +84,15 @@ function changeScene(newScene) {
 function drawBackground(ctx, scene) {
   const bgs = BACKGROUNDS[scene];
   if (bgs) {
-    // Alterna entre os dois PNGs a cada 1 segundo
-    if (Date.now() - bgTimer > 1000) {
-      bgFrame = (bgFrame + 1) % 2;
-      bgTimer = Date.now();
-    }
+    // Sempre usa o primeiro PNG, sem alternância
     const img = new Image();
-    img.src = bgs[bgFrame];
+    img.src = bgs[0];
     img.onload = () => {
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
     // Se não carregar, usa cor padrão
     img.onerror = () => {
-      ctx.fillStyle = "#0066cc"; // cor padrão do index
+      ctx.fillStyle = "#0066cc";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     };
     // Se já carregou, desenha imediatamente
@@ -104,7 +100,6 @@ function drawBackground(ctx, scene) {
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     }
   } else {
-    // Se não houver PNG, cor padrão
     ctx.fillStyle = "#0066cc";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
@@ -113,6 +108,12 @@ function drawBackground(ctx, scene) {
 // Exemplo de uso em cada renderização de tela
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Controle de animação dos NPCs (deve estar aqui!)
+  if (Date.now() - npcAnimFrameTimer > 400) {
+    npcAnimFrame = (npcAnimFrame + 1) % 2;
+    npcAnimFrameTimer = Date.now();
+  }
 
   // Desenha o background animado
   drawBackground(ctx, scene);
@@ -134,6 +135,8 @@ function update() {
 
   requestAnimationFrame(update);
 }
+
+
 
 document.addEventListener("keydown", (e) => {
   switch (e.key) {

@@ -7,6 +7,61 @@ npcDefaultImg.src = "assets/npcs/npc_default.png";
 let npcDefaultLoaded = false;
 npcDefaultImg.onload = () => { npcDefaultLoaded = true; };
 
+const NPC_ANIM_IMAGES = {
+  "Administração": [
+    "assets/npcs/npc_admin1.png",
+    "assets/npcs/npc_admin2.png"
+  ],
+  "Biomedicina": [
+    "assets/npcs/npc_biomedicina1.png",
+    "assets/npcs/npc_biomedicina2.png"
+  ],
+  "Direito": [
+    "assets/npcs/npc_direito1.png",
+    "assets/npcs/npc_direito2.png"
+  ],
+  "Psicologia": [
+    "assets/npcs/npc_psicologia1.png",
+    "assets/npcs/npc_psicologia2.png"
+  ],
+  "Publicidade": [
+    "assets/npcs/npc_publicidade1.png",
+    "assets/npcs/npc_publicidade2.png"
+  ],
+  "Arquitetura e Urbanismo": [
+    "assets/npcs/npc_arquitetura1.png",
+    "assets/npcs/npc_arquitetura2.png"
+  ],
+  "Ciências Contábeis": [
+    "assets/npcs/npc_contabeis1.png",
+    "assets/npcs/npc_contabeis2.png"
+  ],
+  "Design de Interiores": [
+    "assets/npcs/npc_design1.png",
+    "assets/npcs/npc_design2.png"
+  ],
+  "Engenharia de Software": [
+    "assets/npcs/npc_software1.png",
+    "assets/npcs/npc_software2.png"
+  ],
+  "Estética e Cosmética": [
+    "assets/npcs/npc_estetica1.png",
+    "assets/npcs/npc_estetica2.png"
+  ],
+  "Biomedicina": [
+    "assets/npcs/npc_biomedicina1.png",
+    "assets/npcs/npc_biomedicina2.png"
+  ],
+  "Educação Física": [
+    "assets/npcs/npc_edfisica1.png",
+    "assets/npcs/npc_edfisica2.png"
+  ],
+  "Enfermagem": [
+    "assets/npcs/npc_enfermagem1.png",
+    "assets/npcs/npc_enfermagem2.png"
+  ]
+};
+
 const NPC_IMAGES = {
   "Administração": "assets/npcs/npc_admin.png",
   "Direito": "assets/npcs/npc_direito.png",
@@ -23,6 +78,24 @@ const NPC_IMAGES = {
   "Fisioterapia": "assets/npcs/npc_fisioterapia.png",
   "Nutrição": "assets/npcs/npc_nutricao.png",
   "Radiologia": "assets/npcs/npc_radiologia.png"
+};
+
+const PORTAL_IMAGES = {
+  "Administração": "assets/portais/admin_portal.png",
+  "Direito": "assets/portais/direito_portal.png",
+  "Psicologia": "assets/portais/psicologia_portal.png",
+  "Publicidade": "assets/portais/publicidade_portal.png",
+  "Arquitetura e Urbanismo": "assets/portais/arquitetura_portal.png",
+  "Ciências Contábeis": "assets/portais/contabeis_portal.png",
+  "Design de Interiores": "assets/portais/design_portal.png",
+  "Engenharia de Software": "assets/portais/software_portal.png",
+  "Estética e Cosmética": "assets/portais/estetica_portal.png",
+  "Biomedicina": "assets/portais/biomedicina_portal.png",
+  "Educação Física": "assets/portais/edfisica_portal.png",
+  "Enfermagem": "assets/portais/enfermagem_portal.png",
+  "Fisioterapia": "assets/portais/fisioterapia_portal.png",
+  "Nutrição": "assets/portais/nutricao_portal.png",
+  "Radiologia": "assets/portais/radiologia_portal.png"
 };
 
 let npcFrame = 0;
@@ -59,9 +132,26 @@ function fase1(ctx, player, changeScene, canvas) {
   ctx.fillStyle = "brown";
   ctx.fillRect(canvas.width - 190, canvas.height - groundH - 75, 100, 75);
 
-  ctx.fillStyle = "black";
-  ctx.font = "20px Arial";
-  ctx.fillText("Chegue ao prédio →", 50, 50);
+  // Portal inicial (imagem)
+  const portalW = 100, portalH = 120;
+  const portalX = canvas.width - 190;
+  const portalY = canvas.height - groundH - portalH;
+  const portalImg = new Image();
+  portalImg.src = "assets/portais/portal_inicial.png";
+  if (portalImg.complete && portalImg.naturalWidth > 0) {
+    ctx.drawImage(portalImg, portalX, portalY, portalW, portalH);
+  } else {
+    portalImg.onload = () => {
+      ctx.drawImage(portalImg, portalX, portalY, portalW, portalH);
+    };
+    // fallback enquanto carrega
+    ctx.fillStyle = "brown";
+    ctx.fillRect(portalX, portalY, portalW, portalH);
+  }
+
+  ctx.fillStyle = "#333333ff";
+  ctx.font = "20px PressStart2P-Regular";
+  ctx.fillText("Chegue à Unigran →", 50, 50);
 
   // ====== ITENS FLUTUANDO ANIMADOS E MAIORES ======
   if (!window.collectedItems) window.collectedItems = { i1: false, i2: false };
@@ -113,16 +203,17 @@ function fase1(ctx, player, changeScene, canvas) {
   }
   player.draw(ctx);
 
-  if (colide(player, { x: canvas.width - 190, y: canvas.height - groundH - 75, w: 100, h: 75 })) {
+  // Colisão com portal para avançar
+  if (colide(player, { x: portalX, y: portalY, w: portalW, h: portalH })) {
     changeScene("fasePredio");
   }
 }
 
 function fasePredio(ctx, player, changeScene, canvas) {
-  let groundY = canvas.height - 100;
+  let groundY = canvas.height - 30;
 
-  ctx.fillStyle = "#e0e0e0";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  //ctx.fillStyle = "#e0e0e0";
+  //ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = "gray";
   ctx.fillRect(0, groundY, canvas.width, 100);
@@ -136,9 +227,9 @@ function fasePredio(ctx, player, changeScene, canvas) {
 
   // Texto estilizado e maior 
   ctx.font = "bold 18px Kanit, PressStart2P-Regular, sans-serif";
-  ctx.fillStyle = "#0053A0";
+  ctx.fillStyle = "#c7e4ffff";
   ctx.textAlign = "center";
-  ctx.fillText("Fale com o Recepcionista", canvas.width / 2, 100);
+  ctx.fillText("Fale com o Recepcionista", canvas.width / 2, 60);
 
   player.updatePlataforma(groundY);
   player.draw(ctx);
@@ -426,7 +517,7 @@ function desenharPortaisComNPCs(ctx, player, changeScene, canvas, cursos, hubSce
     const x = startX + col * gapX;
     const y = startY + row * gapY;
 
-    // Portal
+    // Portal dos  cursos com cor azul (retângulo azul)
     ctx.fillStyle = "#0053A0";
     ctx.fillRect(x, y, portalW, portalH);
 
@@ -436,10 +527,15 @@ function desenharPortaisComNPCs(ctx, player, changeScene, canvas, cursos, hubSce
     ctx.fillStyle = "#FDB515";
     ctx.fillRect(npcX, npcY, 60, 80);
 
-    // Rótulo do curso
+    // Rótulo do curso centralizado acima do portal
     ctx.fillStyle = "#00315E";
-    ctx.font = "16px Arial";
-    ctx.fillText(curso.nome, x - 10, y - 10);
+    ctx.font = "18px Arial bold";
+    ctx.textAlign = "center";
+    ctx.fillText(
+      curso.nome,
+      p.x + portalW / 2,           // centraliza em relação ao portal
+      p.y - 22                     // um pouco acima do portal
+    );
 
     // Checagem de colisão com o portal para abrir diálogo
     if (colide(player, { x, y, w: portalW, h: portalH })) {
@@ -513,37 +609,76 @@ function desenharPortaisSaguao(ctx, player, changeScene, canvas, cursos, hubScen
 
   cursos.forEach((curso, idx) => {
     const p = posicoes[idx];
-    // Portal
-    ctx.fillStyle = "#0053A0";
-    ctx.fillRect(p.x, p.y, portalW, portalH);
 
-    let desenhou = false;
-    let npcImgSrc = (typeof NPC_IMAGES !== "undefined" && NPC_IMAGES[curso.nome])
-      ? NPC_IMAGES[curso.nome]
-      : "assets/npcs/npc_default.png";
-
-    let npcImg = new Image();
-    npcImg.src = npcImgSrc;
-    if (npcImg.complete && npcImg.naturalWidth > 0) {
-      ctx.drawImage(npcImg, p.npcX, p.npcY, npcW, npcH);
-      desenhou = true;
+    // Portal: usa imagem específica se existir, senão um retângulo azul
+    let portalImgSrc = PORTAL_IMAGES[curso.nome];
+    if (portalImgSrc) {
+      let portalImg = new Image();
+      portalImg.src = portalImgSrc;
+      if (portalImg.complete && portalImg.naturalWidth > 0) {
+        ctx.drawImage(portalImg, p.x, p.y, portalW, portalH);
+      } else {
+        portalImg.onload = () => {
+          ctx.drawImage(portalImg, p.x, p.y, portalW, portalH);
+        };
+        ctx.fillStyle = "#0053A0";
+        ctx.fillRect(p.x, p.y, portalW, portalH);
+      }
     } else {
-      npcImg.onload = () => {
-        ctx.drawImage(npcImg, p.npcX, p.npcY, npcW, npcH);
-      };
-    }
-    if (!desenhou) {
-      ctx.fillStyle = "#FDB515";
-      ctx.fillRect(p.npcX, p.npcY, npcW, npcH);
+      ctx.fillStyle = "#0053A0";
+      ctx.fillRect(p.x, p.y, portalW, portalH);
     }
 
-    // Rótulo do curso
+    // NPC colado ao portal, do lado de dentro da tela, alinhado à base
+    const npcW = 60, npcH = 80;
+    let npcX, npcY;
+    if (p.npcDir === 'right') {
+      npcX = p.x + portalW + 2;
+      npcY = p.y + portalH - npcH;
+    } else {
+      npcX = p.x - npcW - 2;
+      npcY = p.y + portalH - npcH;
+    }
+
+    // Usa animação de 2 frames se existir
+    let npcImgs = NPC_ANIM_IMAGES[curso.nome];
+    if (npcImgs) {
+      let npcImg = new Image();
+      npcImg.src = npcImgs[npcAnimFrame];
+      if (npcImg.complete && npcImg.naturalWidth > 0) {
+        ctx.drawImage(npcImg, npcX, npcY, npcW, npcH);
+      } else {
+        npcImg.onload = () => {
+          ctx.drawImage(npcImg, npcX, npcY, npcW, npcH);
+        };
+        ctx.fillStyle = "#FDB515";
+        ctx.fillRect(npcX, npcY, npcW, npcH);
+      }
+    } else {
+      // fallback para NPC único ou default
+      let npcImgSrc = NPC_IMAGES[curso.nome] || "assets/npcs/npc_default.png";
+      let npcImg = new Image();
+      npcImg.src = npcImgSrc;
+      if (npcImg.complete && npcImg.naturalWidth > 0) {
+        ctx.drawImage(npcImg, npcX, npcY, npcW, npcH);
+      } else {
+        npcImg.onload = () => {
+          ctx.drawImage(npcImg, npcX, npcY, npcW, npcH);
+        };
+        ctx.fillStyle = "#FDB515";
+        ctx.fillRect(npcX, npcY, npcW, npcH);
+      }
+    }
+
+    // Rótulo do curso centralizado acima do portal
     ctx.fillStyle = "#00315E";
-    ctx.font = "16px 'PressStart2P-Regular'";
-    let labelX = p.x, labelY = p.y - 10;
-    if (p.npcDir === 'right') labelX = p.x + portalW + 20;
-    if (p.npcDir === 'left') labelX = p.x - 80;
-    ctx.fillText(curso.nome, labelX, labelY);
+    ctx.font = "16px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(
+      curso.nome,
+      p.x + portalW / 2,           // centraliza em relação ao portal
+      p.y - 12                     // um pouco acima do portal
+    );
 
     // Colisão para abrir diálogo
     if (colide(player, { x: p.x, y: p.y, w: portalW, h: portalH })) {
@@ -716,4 +851,24 @@ function cenaFim(ctx, canvas) {
     }, 4000);
   }
 }
+
+let npcAnimFrame = 0;
+let npcAnimFrameTimer = Date.now();
+
+function update() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Controle de animação dos NPCs (deve estar aqui!)
+  if (Date.now() - npcAnimFrameTimer > 400) {
+    npcAnimFrame = (npcAnimFrame + 1) % 2;
+    npcAnimFrameTimer = Date.now();
+  }
+
+  // Desenha o background animado
+  drawBackground(ctx, scene);
+
+  requestAnimationFrame(update);
+}
+
+
 

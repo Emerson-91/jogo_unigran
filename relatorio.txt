@@ -82,3 +82,5 @@
 [2025-10-05T13:52:43.842Z] curso=Administração total=100 curso=80 coletaveis=20 modo=ordem
 [2025-10-05T14:18:54.472Z] curso=Ciências Contábeis total=100 curso=80 coletaveis=20 modo=quiz
 [2025-10-05T14:19:18.087Z] curso=Radiologia total=60 curso=40 coletaveis=20 modo=quiz
+[2025-10-05T22:37:18.587Z] curso=Direito total=100 curso=80 coletaveis=20 modo=quiz
+[2025-10-05T23:48:13.943Z] curso=Direito total=100 curso=80 coletaveis=20 modo=quiz

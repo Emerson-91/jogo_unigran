@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <title>Unicão na Feira das Profissões</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <!-- Tela inicial -->
   <div id="startScreen">
@@ -15,8 +17,18 @@
 
   <!-- Container do jogo -->
   <div class="game-container" style="display:none;">
-    <h1>Unicão na Feira das Profissões</h1>
+    <h1>Unicão: A Jornada do Saber</h1>
     <canvas id="gameCanvas" width="800" height="500"></canvas>
+    <!-- Tutorial de movimentação -->
+    <div id="tutorial"
+      style="margin: 24px auto 0 auto; max-width: 600px; background: #fffbe7; border-radius: 14px; box-shadow: 0 2px 12px #0002; padding: 18px; font-family: 'PressStart2P-Regular', Arial, sans-serif; font-size: 1em;">
+      <strong>Como movimentar o Unicão:</strong><br><br>
+      <span style="color:#0053A0;">Fase de Plataforma:</span><br>
+      <span>← → ou "A" "D"</span> para andar &nbsp; ↑ &nbsp; <span>seta pra cima ou "W"</span> para pular<br><br>
+      <span style="color:#0053A0;">Saguão:</span><br>
+      <span>← → ↑ ↓ ou "W" "A" "S" "D"</span> para andar livremente<br><br>
+      <span style="color:#FDB515;">Dica:</span> Encoste em NPCs ou portais para interagir!
+    </div>
   </div>
   <script src="js/utils.js"></script>
   <script src="js/player.js"></script>
@@ -37,4 +49,5 @@
     });
   </script>
 </body>
+
 </html>
