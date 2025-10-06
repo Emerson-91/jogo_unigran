@@ -254,9 +254,11 @@ function dialogoPadrao(ctx, avatarLabel, npcLabel, textoBalao, botoesArray, canv
   unicaoImg.src = "assets/unicaoTalk.png";
   if (unicaoImg.complete && unicaoImg.naturalWidth > 0) {
     ctx.drawImage(unicaoImg, 120, yBase, avatarW, avatarH);
+    drawRoundedRect(ctx, 120, yBase, avatarW, avatarH, 18, "#0053A0", 4);
   } else {
     unicaoImg.onload = () => {
       ctx.drawImage(unicaoImg, 120, yBase, avatarW, avatarH);
+      drawRoundedRect(ctx, 120, yBase, avatarW, avatarH, 18, "#0053A0", 4);
     };
   }
   ctx.fillStyle = "#fff";
@@ -283,9 +285,11 @@ function dialogoPadrao(ctx, avatarLabel, npcLabel, textoBalao, botoesArray, canv
   const npcX = canvas.width - 120 - avatarW;
   if (npcImg.complete && npcImg.naturalWidth > 0) {
     ctx.drawImage(npcImg, npcX, yBase, avatarW, avatarH);
+    drawRoundedRect(ctx, npcX, yBase, avatarW, avatarH, 18, "#FDB515", 4);
   } else {
     npcImg.onload = () => {
       ctx.drawImage(npcImg, npcX, yBase, avatarW, avatarH);
+      drawRoundedRect(ctx, npcX, yBase, avatarW, avatarH, 18, "#FDB515", 4);
     };
   }
   ctx.fillStyle = "#fff";
@@ -316,9 +320,9 @@ function dialogoNPC(ctx, changeScene, canvas) {
   // Jogador à esquerda
   ctx.fillStyle = "#0053A0";
   ctx.fillRect(120, yBase, avatarW, avatarH);
-  ctx.fillStyle = "#fff";
-  ctx.font = "16px PressStart2P-Regular";
-  ctx.fillText("Você", 140, yBase + avatarH + 20);
+  ctx.strokeStyle = "#0053A0";
+  ctx.lineWidth = 4;
+  ctx.strokeRect(120, yBase, avatarW, avatarH);
 
   // Balão centralizado usando drawSpeechBubble
   drawSpeechBubble(
@@ -334,9 +338,9 @@ function dialogoNPC(ctx, changeScene, canvas) {
   // NPC à direita
   ctx.fillStyle = "#FDB515";
   ctx.fillRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
-  ctx.fillStyle = "#fff";
-  ctx.font = "16px PressStart2P-Regular";
-  ctx.fillText("NPC", canvas.width - 120 - avatarW + 20, yBase + avatarH + 20);
+  ctx.strokeStyle = "#FDB515";
+  ctx.lineWidth = 4;
+  ctx.strokeRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
 
   // Botões abaixo do balão
   criarBotao(ctx, canvas.width / 2 - 220, yBase + balaoH + 40, 150, 50, "Humanas", () => changeScene("explicacaoHumanas"));
@@ -356,10 +360,9 @@ function explicacaoArea(ctx, changeScene, canvas, titulo, texto, destinoHub) {
   // Jogador à esquerda
   ctx.fillStyle = "#0053A0";
   ctx.fillRect(120, yBase, avatarW, avatarH);
-  ctx.fillStyle = "#fff";
-  ctx.font = "18px PressStart2P-Regular";
-  ctx.textAlign = "center";
-  ctx.fillText("Você", 120 + avatarW / 2, yBase + avatarH + 24);
+  ctx.strokeStyle = "#0053A0";
+  ctx.lineWidth = 4;
+  ctx.strokeRect(120, yBase, avatarW, avatarH);
 
   // Balão centralizado
   drawSpeechBubble(
@@ -375,10 +378,9 @@ function explicacaoArea(ctx, changeScene, canvas, titulo, texto, destinoHub) {
   // NPC1 à direita
   ctx.fillStyle = "#FDB515";
   ctx.fillRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
-  ctx.fillStyle = "#fff";
-  ctx.font = "18px PressStart2P-Regular";
-  ctx.textAlign = "center";
-  ctx.fillText("NPC1", canvas.width - 120 - avatarW / 2, yBase + avatarH + 24);
+  ctx.strokeStyle = "#FDB515";
+  ctx.lineWidth = 4;
+  ctx.strokeRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
 
   // Botões lado a lado, com espaçamento
   const btnY = yBase + balaoH + 40;
@@ -534,7 +536,7 @@ function desenharPortaisComNPCs(ctx, player, changeScene, canvas, cursos, hubSce
     ctx.fillText(
       curso.nome,
       p.x + portalW / 2,           // centraliza em relação ao portal
-      p.y - 22                     // um pouco acima do portal
+      p.y - 32                     // mais acima do portal
     );
 
     // Checagem de colisão com o portal para abrir diálogo
@@ -677,7 +679,7 @@ function desenharPortaisSaguao(ctx, player, changeScene, canvas, cursos, hubScen
     ctx.fillText(
       curso.nome,
       p.x + portalW / 2,           // centraliza em relação ao portal
-      p.y - 12                     // um pouco acima do portal
+      p.y - 32                     // mais acima do portal
     );
 
     // Colisão para abrir diálogo
@@ -738,10 +740,9 @@ function dialogoCursoInfo(ctx, changeScene, canvas) {
   // Jogador à esquerda
   ctx.fillStyle = "#0053A0";
   ctx.fillRect(120, yBase, avatarW, avatarH);
-  ctx.fillStyle = "#fff";
-  ctx.font = "18px PressStart2P-Regular";
-  ctx.textAlign = "center";
-  ctx.fillText("Você", 120 + avatarW / 2, yBase + avatarH + 24);
+  ctx.strokeStyle = "#0053A0";
+  ctx.lineWidth = 4;
+  ctx.strokeRect(120, yBase, avatarW, avatarH);
 
   // Balão centralizado com cantos arredondados
   drawSpeechBubble(
@@ -757,10 +758,9 @@ function dialogoCursoInfo(ctx, changeScene, canvas) {
   // NPC à direita
   ctx.fillStyle = "#FDB515";
   ctx.fillRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
-  ctx.fillStyle = "#fff";
-  ctx.font = "18px PressStart2P-Regular";
-  ctx.textAlign = "center";
-  ctx.fillText("Coordenador", canvas.width - 120 - avatarW / 2, yBase + avatarH + 24);
+  ctx.strokeStyle = "#FDB515";
+  ctx.lineWidth = 4;
+  ctx.strokeRect(canvas.width - 120 - avatarW, yBase, avatarW, avatarH);
 
   // Botões lado a lado, com espaçamento
   const btnY = yBase + balaoH + 40;
@@ -868,6 +868,25 @@ function update() {
   drawBackground(ctx, scene);
 
   requestAnimationFrame(update);
+}
+
+function drawRoundedRect(ctx, x, y, w, h, radius, color, lineWidth) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + w - radius, y);
+  ctx.arcTo(x + w, y, x + w, y + radius, radius);
+  ctx.lineTo(x + w, y + h - radius);
+  ctx.arcTo(x + w, y + h, x + w - radius, y + h, radius);
+  ctx.lineTo(x + radius, y + h);
+  ctx.arcTo(x, y + h, x, y + h - radius, radius);
+  ctx.lineTo(x, y + radius);
+  ctx.arcTo(x, y, x + radius, y, radius);
+  ctx.closePath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = lineWidth;
+  ctx.stroke();
+  ctx.restore();
 }
 
 

@@ -876,5 +876,13 @@
     "scoreTotal": 100,
     "modo": "quiz",
     "ts": 1759708093943
+  },
+  {
+    "curso": "Direito",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1759710599959
   }
 ]
