@@ -1,0 +1,45 @@
+﻿Administração
+assets/bg/administracao1.png
+assets/bg/administracao2.png
+Direito
+direito1.png
+direito2.png
+Psicologia
+assets/bg/psicologia1.png
+assets/bg/psicologia2.png
+Publicidade
+assets/bg/publicidade1.png
+assets/bg/publicidade2.png
+Arquitetura e Urbanismo
+assets/bg/arquiteturaurbanismo1.png
+assets/bg/arquiteturaurbanismo2.png
+Ciências Contábeis
+assets/bg/cienciascontabeis1.png
+assets/bg/cienciascontabeis2.png
+Design de Interiores
+assets/bg/designinteriores1.png
+assets/bg/designinteriores2.png
+Engenharia de Software
+eng_software1.png
+eng_software2.png
+Estética e Cosmética
+assets/bg/esteticacosmetica1.png
+assets/bg/esteticacosmetica2.png
+Biomedicina
+assets/bg/biomedicina1.png
+assets/bg/biomedicina2.png
+Educação Física
+edfisica1.png
+edfisica2.png
+Enfermagem
+assets/bg/enfermagem1.png
+assets/bg/enfermagem2.png
+Fisioterapia
+assets/bg/fisioterapia1.png
+assets/bg/fisioterapia2.png
+Nutrição
+assets/bg/nutricao1.png
+assets/bg/nutricao2.png
+Radiologia
+assets/bg/radiologia1.png
+assets/bg/radiologia2.png

@@ -18,3 +18,4 @@ async function salvarRelatorioBackend(curso, scoreCurso, extra) {
     body: JSON.stringify(payload)
   });
 }
+

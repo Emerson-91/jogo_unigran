@@ -28,13 +28,13 @@ body {
 }
 
 #startScreen h1 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
+  font-size: 2.2em;
+  margin-bottom: 18px;
 }
 
 #startScreen p {
   font-size: 1.2em;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 #startButton {
@@ -67,7 +67,7 @@ body {
 .game-container h1 {
   margin-top: 24px;
   /* Menor espaço acima */
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 
   text-align: center;
   font-size: 2.2em;
@@ -111,4 +111,72 @@ button,
 .game-container,
 #gameCanvas {
   font-family: 'PressStart2P-Regular', Arial, sans-serif;
+}
+
+/* ===== Botão Tela Cheia (padrão) ===== */
+#fullscreenToggle {
+  position: fixed;
+  top: 12px;
+  right: 14px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border: 2px solid #ffcc00;
+  padding: 10px 14px;
+  font-size: 18px;
+  line-height: 1;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .25s, transform .15s;
+  text-shadow: 0 1px 2px #000;
+}
+
+#fullscreenToggle:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+#fullscreenToggle:active {
+  transform: scale(0.92);
+}
+
+#fullscreenToggle.active {
+  border-color: #ff5500;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+@media (max-width: 600px) {
+  #fullscreenToggle {
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+}
+
+/* ===== Toolbar fixa (override para evitar sobreposição) ===== */
+#topToolbar {
+  /* estilo principal está inline no HTML; aqui apenas garantimos a ordem z e layout */
+  z-index: 10000;
+}
+
+#topToolbar button {
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border: 2px solid #ffcc00;
+  border-radius: 8px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Quando o botão de fullscreen estiver DENTRO da toolbar,
+   não queremos position: fixed; para não cobrir os botões +/- */
+#topToolbar #fullscreenToggle {
+  position: static !important;
+  top: auto;
+  right: auto;
+  z-index: auto;
+  padding: 6px 8px;
+  font-size: 16px;
+}
+
+#topToolbar #fullscreenToggle.active {
+  border-color: #ff5500;
 }

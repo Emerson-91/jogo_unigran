@@ -3,14 +3,34 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Unicão na Feira das Profissões</title>
+  <title>Unicão Jogo</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+  <!-- Toolbar fixa: Zoom - / Zoom + / Fullscreen -->
+  <div id="topToolbar"
+    style="position:fixed; top:10px; right:10px; z-index:10000; display:none; gap:8px; align-items:center;">
+    <button id="zoomOutBtn" aria-label="Diminuir zoom" title="Diminuir zoom (-10%)" style="margin-right:8px;">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+        <line x1="8" y1="11" x2="14" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+    <button id="zoomInBtn" aria-label="Aumentar zoom" title="Aumentar zoom (+10%)" style="margin-right:8px;">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+        <line x1="8" y1="11" x2="14" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <line x1="11" y1="8" x2="11" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+    <button id="fullscreenToggle" aria-label="Tela cheia" title="Tela cheia (F11)">⛶</button>
+  </div>
   <!-- Tela inicial -->
   <div id="startScreen">
-    <h1>Bem-vindo ao Jogo da Unigran Capital!</h1>
+    <h1>Bem-vindo ao Jogo<br> da Unigran Capital!</h1>
     <p>Se aventure pelos nossos cursos e descubra sua jornada acadêmica!</p>
     <button id="startButton">Iniciar Jogo</button>
   </div>
@@ -19,7 +39,7 @@
   <div class="game-container" style="display:none;">
     <h1>Unicão: A Jornada do Saber</h1>
     <canvas id="gameCanvas" width="800" height="500"></canvas>
-    <!-- Tutorial de movimentação -->
+    <!-- Tutorial de movimentação 
     <div id="tutorial"
       style="margin: 24px auto 0 auto; max-width: 600px; background: #fffbe7; border-radius: 14px; box-shadow: 0 2px 12px #0002; padding: 18px; font-family: 'PressStart2P-Regular', Arial, sans-serif; font-size: 1em;">
       <strong>Como movimentar o Unicão:</strong><br><br>
@@ -28,7 +48,7 @@
       <span style="color:#0053A0;">Saguão:</span><br>
       <span>← → ↑ ↓ ou "W" "A" "S" "D"</span> para andar livremente<br><br>
       <span style="color:#FDB515;">Dica:</span> Encoste em NPCs ou portais para interagir!
-    </div>
+    </div> -->
   </div>
   <script src="js/utils.js"></script>
   <script src="js/player.js"></script>
@@ -42,10 +62,68 @@
     const startButton = document.getElementById('startButton');
     const startScreen = document.getElementById('startScreen');
     const gameContainer = document.querySelector('.game-container');
+    const toolbar = document.getElementById('topToolbar');
 
     startButton.addEventListener('click', () => {
       startScreen.style.display = 'none';
       gameContainer.style.display = 'flex';
+      toolbar.style.display = 'flex';
+    });
+
+    // Função de toggle tela cheia
+    function toggleFullscreen() {
+      const elem = document.documentElement; // página inteira
+      if (!document.fullscreenElement) {
+        if (elem.requestFullscreen) elem.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+    const fsBtn = document.getElementById('fullscreenToggle');
+    fsBtn.addEventListener('click', toggleFullscreen);
+    document.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement) {
+        fsBtn.classList.add('active');
+        fsBtn.textContent = '×';
+        fsBtn.title = 'Sair da tela cheia';
+      } else {
+        fsBtn.classList.remove('active');
+        fsBtn.textContent = '⛶';
+        fsBtn.title = 'Tela cheia (F11)';
+      }
+    });
+
+    // ====== Zoom de página (equivalente a Ctrl- / Ctrl+) ======
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    let pageZoom = 1.0; // 100%
+    const ZOOM_STEP = 0.1; // 10%
+    const ZOOM_MIN = 0.5;  // 50%
+    const ZOOM_MAX = 2.0;  // 200%
+
+    const isFirefox = /firefox/i.test(navigator.userAgent);
+
+    function applyPageZoom() {
+      if (!isFirefox) {
+        // Chromium/Edge: propriedade não-padrão, mas comporta como o zoom do navegador
+        document.body.style.zoom = (pageZoom * 100) + '%';
+      } else {
+        // Firefox: fallback via transform no body
+        document.body.style.transformOrigin = 'top left';
+        document.body.style.transform = `scale(${pageZoom})`;
+        // Ajusta a área útil para evitar cortes/barras de rolagem anômalas
+        document.body.style.width = `${100 / pageZoom}%`;
+        document.body.style.height = `${100 / pageZoom}%`;
+      }
+    }
+
+    zoomOutBtn.addEventListener('click', () => {
+      pageZoom = Math.max(ZOOM_MIN, +(pageZoom - ZOOM_STEP).toFixed(2));
+      applyPageZoom();
+    });
+    zoomInBtn.addEventListener('click', () => {
+      pageZoom = Math.min(ZOOM_MAX, +(pageZoom + ZOOM_STEP).toFixed(2));
+      applyPageZoom();
     });
   </script>
 </body>

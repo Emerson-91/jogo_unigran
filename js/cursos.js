@@ -1,13 +1,14 @@
 // Cursos e NPCs
+/*
 function cursoLoop(curso) {
   ctx.fillStyle = 'white';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = 'black';
-  ctx.font = '20px Arial';
+  ctx.font = '22px Arial';
   //ctx.fillText('Você está no curso: ' + curso, 50, 50);
-  ctx.fillText('Fale com o Coordenador para iniciar o puzzle!', 50, 100);
+  //ctx.fillText('Fale com a Coordenação para iniciar o puzzle!', 50, 100);
 }
-
+*/
 function drawHUD(ctx, curso, score) {
   const azul = '#0053A0';
   const dourado = '#FDB515';
@@ -27,37 +28,37 @@ function drawHUD(ctx, curso, score) {
 }
 
 const EXPLICACOES_PORTAL = {
-  'Administração': 'Administração: aqui você aprende a organizar empresas, pessoas e recursos para alcançar resultados.',
-  'Direito': 'Direito: área que estuda leis, justiça e cidadania para garantir direitos e deveres.',
-  'Psicologia': 'Psicologia: ciência que investiga o comportamento humano e os processos mentais.',
-  'Publicidade': 'Publicidade: comunicação criativa para promover marcas, produtos e ideias.',
-  'Arquitetura e Urbanismo': 'Arquitetura: projeta espaços, edifícios e cidades para melhorar a vida das pessoas.',
-  'Ciências Contábeis': 'Contábeis: controla e analisa as finanças das organizações.',
-  'Design de Interiores': 'Design de Interiores: transforma ambientes internos para conforto, beleza e funcionalidade.',
-  'Engenharia de Software': 'Engenharia de Software: desenvolve sistemas e programas para resolver problemas reais.',
-  'Estética e Cosmética': 'Estética: cuida da beleza, saúde da pele e bem-estar.',
-  'Biomedicina': 'Biomedicina: pesquisa e atua na prevenção, diagnóstico e tratamento de doenças.',
-  'Educação Física': 'Educação Física: promove saúde e qualidade de vida através do movimento.',
-  'Enfermagem': 'Enfermagem: cuida da saúde das pessoas em hospitais, clínicas e comunidades.',
-  'Fisioterapia': 'Fisioterapia: reabilita e previne lesões, melhorando a mobilidade.',
-  'Nutrição': 'Nutrição: estuda alimentos e dietas para promover saúde.',
-  'Radiologia': 'Radiologia: utiliza imagens para diagnóstico médico.'
+  'Administração': 'Aqui a gente aprende a liderar pessoas, organizar processos e tomar boas decisões para os resultados da empresa.',
+  'Direito': 'Falamos sobre leis e justiça no dia a dia, sempre com olhar crítico e foco nos direitos de todos.',
+  'Psicologia': 'Estudamos comportamento e emoções para cuidar da saúde mental e do bem-estar das pessoas.',
+  'Publicidade': 'Criamos campanhas que conectam marcas e pessoas — com estratégia, pesquisa e muita criatividade.',
+  'Arquitetura e Urbanismo': 'Desenhamos espaços e cidades mais bonitas, funcionais e sustentáveis para quem vive nelas.',
+  'Ciências Contábeis': 'Cuidamos das contas, auditoria e impostos para apoiar decisões seguras nas organizações.',
+  'Design de Interiores': 'Transformamos ambientes unindo conforto, estética, iluminação e uso inteligente do espaço.',
+  'Engenharia de Software': 'Planejamos e construímos softwares de qualidade — do levantamento de requisitos aos testes.',
+  'Estética e Cosmética': 'Cuidamos da pele e do bem-estar com técnicas seguras e tecnologia a favor da autoestima.',
+  'Biomedicina': 'Pesquisamos e realizamos análises que ajudam a prevenir, diagnosticar e tratar doenças.',
+  'Educação Física': 'Promovemos saúde e desempenho por meio de exercícios, hábitos e acompanhamento próximo.',
+  'Enfermagem': 'Cuidamos das pessoas em diferentes momentos da vida — com técnica, empatia e responsabilidade.',
+  'Fisioterapia': 'Ajudamos na prevenção e reabilitação do movimento para devolver autonomia e qualidade de vida.',
+  'Nutrição': 'Trabalhamos com alimentação equilibrada para saúde, esporte, clínica e políticas públicas.',
+  'Radiologia': 'Usamos imagens (raio X, tomografia, ressonância) para apoiar diagnósticos com segurança.'
 };
 
 const EXPLICACOES_COORDENADOR = {
-  'Administração': 'Bem-vindo à Administração! Prepare-se para organizar processos, liderar equipes e tomar decisões estratégicas. Vamos para o desafio?',
-  'Direito': 'Bem-vindo ao Direito! Aqui você vai interpretar leis e resolver casos jurídicos. Pronto para o puzzle?',
-  'Psicologia': 'Bem-vindo à Psicologia! Observe comportamentos e descubra padrões. Vamos ao desafio?',
-  'Publicidade': 'Bem-vindo à Publicidade! Use criatividade para comunicar ideias e impactar pessoas. Pronto para o puzzle?',
-  'Arquitetura e Urbanismo': 'Bem-vindo à Arquitetura! Projete e encaixe formas para criar espaços incríveis. Vamos ao desafio?',
-  'Ciências Contábeis': 'Bem-vindo às Contábeis! Calcule, analise e controle as finanças. Pronto para o puzzle?',
-  'Design de Interiores': 'Bem-vindo ao Design de Interiores! Associe elementos para criar ambientes harmoniosos. Vamos ao desafio?',
-  'Engenharia de Software': 'Bem-vindo à Engenharia de Software! Organize códigos e resolva problemas lógicos. Pronto para o puzzle?',
-  'Estética e Cosmética': 'Bem-vindo à Estética! Descubra os cuidados ideais para beleza e saúde. Vamos ao desafio?',
-  'Biomedicina': 'Bem-vindo à Biomedicina! Analise exames e encontre respostas para a saúde. Pronto para o puzzle?',
-  'Educação Física': 'Bem-vindo à Educação Física! Teste seus conhecimentos sobre exercícios e saúde. Vamos ao desafio?',
-  'Enfermagem': 'Bem-vindo à Enfermagem! Cuide de pacientes e tome decisões rápidas. Pronto para o puzzle?',
-  'Fisioterapia': 'Bem-vindo à Fisioterapia! Associe exercícios e técnicas para reabilitação. Vamos ao desafio?',
-  'Nutrição': 'Bem-vindo à Nutrição! Associe alimentos e benefícios para uma vida saudável. Pronto para o puzzle?',
-  'Radiologia': 'Bem-vindo à Radiologia! Analise imagens e faça diagnósticos precisos. Vamos ao desafio?'
+  'Administração': 'Que bom te ver por aqui! Vou te mostrar rapidinho como a gestão faz diferença no dia a dia.',
+  'Direito': 'Seja bem-vindo! A ideia é aproximar o Direito da sua rotina, de um jeito leve e direto.',
+  'Psicologia': 'Olá! Vamos conversar sobre pessoas, emoções e cuidados com a mente — tudo com carinho e ciência.',
+  'Publicidade': 'Bem-vindo! Aqui você vai ver como criatividade e estratégia caminham juntas.',
+  'Arquitetura e Urbanismo': 'Oi! Quero te mostrar como a gente pensa espaços bonitos, úteis e responsáveis.',
+  'Ciências Contábeis': 'Olá! Contabilidade também fala de decisões melhores e futuro das empresas — bora ver?',
+  'Design de Interiores': 'Seja bem-vindo! Vamos falar de conforto, estética e bem-estar dentro dos ambientes.',
+  'Engenharia de Software': 'Olá! Aqui nosso foco é formar engenheiros de software para a era da inteligência artificial com criatividade,',
+  'Estética e Cosmética': 'Olá! Vou te contar como o cuidado com a pele e o bem-estar caminham juntos.',
+  'Biomedicina': 'Bem-vindo! Por trás dos exames tem muita ciência e curiosidade — deixa eu te mostrar.',
+  'Educação Física': 'Olá! Saúde e movimento são para todo mundo — vamos nessa?',
+  'Enfermagem': 'Seja bem-vindo! Cuidar é técnica, empatia e presença — vou te apresentar um pouco.',
+  'Fisioterapia': 'Olá! Nosso foco é devolver autonomia com cuidado e orientação.',
+  'Nutrição': 'Bem-vindo! Comer bem é sobre equilíbrio e escolhas possíveis — vamos conversar?',
+  'Radiologia': 'Oi! Imagens contam histórias do corpo — e a gente aprende a interpretá-las com segurança.'
 };
