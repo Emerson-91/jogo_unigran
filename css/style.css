@@ -97,9 +97,11 @@ body {
 
 /* ===== Mobile: canvas escala para caber, título menor, toolbar sem zoom ===== */
 @media (max-width: 600px) {
-  /* Título menor para caber na tela */
+.game-container {
+    margin-top: 16%;
+  }  
   .game-container h1 {
-    font-size: 0.2em;
+    font-size: 1em;
     margin-bottom: 4px;
     margin-top: 4px;
     padding: 0 8px;
@@ -199,6 +201,7 @@ button,
 }
 
 @media (max-width: 600px) {
+
   #fullscreenToggle {
     padding: 8px 10px;
     font-size: 16px;
