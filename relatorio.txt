@@ -70,3 +70,6 @@
 [2025-12-02T13:25:55.762Z] curso=Nutrição total=20 curso=0 coletaveis=20 modo=quiz
 [2025-12-02T15:43:42.834Z] curso=Nutrição total=60 curso=40 coletaveis=20 modo=quiz
 [2025-12-02T15:43:43.340Z] curso=Nutrição total=60 curso=40 coletaveis=20 modo=quiz
+[2026-04-21T15:40:12.750Z] curso=Fisioterapia total=40 curso=20 coletaveis=20 modo=quiz
+[2026-04-21T15:49:57.019Z] curso=Fisioterapia total=100 curso=80 coletaveis=20 modo=quiz
+[2026-04-21T16:03:35.301Z] curso=Fisioterapia total=60 curso=40 coletaveis=20 modo=quiz

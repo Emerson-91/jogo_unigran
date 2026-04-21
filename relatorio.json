@@ -12300,5 +12300,29 @@
     "scoreTotal": 60,
     "modo": "quiz",
     "ts": 1764690223340
+  },
+  {
+    "curso": "Fisioterapia",
+    "scoreCurso": 20,
+    "scoreColetaveis": 20,
+    "scoreTotal": 40,
+    "modo": "quiz",
+    "ts": 1776786012750
+  },
+  {
+    "curso": "Fisioterapia",
+    "scoreCurso": 80,
+    "scoreColetaveis": 20,
+    "scoreTotal": 100,
+    "modo": "quiz",
+    "ts": 1776786597019
+  },
+  {
+    "curso": "Fisioterapia",
+    "scoreCurso": 40,
+    "scoreColetaveis": 20,
+    "scoreTotal": 60,
+    "modo": "quiz",
+    "ts": 1776787415301
   }
 ]

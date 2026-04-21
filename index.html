@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Unicão Jogo</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -39,16 +40,7 @@
   <div class="game-container" style="display:none;">
     <h1>Unicão: A Jornada do Saber</h1>
     <canvas id="gameCanvas" width="800" height="500"></canvas>
-    <!-- Tutorial de movimentação 
-    <div id="tutorial"
-      style="margin: 24px auto 0 auto; max-width: 600px; background: #fffbe7; border-radius: 14px; box-shadow: 0 2px 12px #0002; padding: 18px; font-family: 'PressStart2P-Regular', Arial, sans-serif; font-size: 1em;">
-      <strong>Como movimentar o Unicão:</strong><br><br>
-      <span style="color:#0053A0;">Fase de Plataforma:</span><br>
-      <span>← → ou "A" "D"</span> para andar &nbsp; ↑ &nbsp; <span>seta pra cima ou "W"</span> para pular<br><br>
-      <span style="color:#0053A0;">Saguão:</span><br>
-      <span>← → ↑ ↓ ou "W" "A" "S" "D"</span> para andar livremente<br><br>
-      <span style="color:#FDB515;">Dica:</span> Encoste em NPCs ou portais para interagir!
-    </div> -->
+
   </div>
   <script src="js/utils.js"></script>
   <script src="js/player.js"></script>
@@ -104,17 +96,15 @@
     const isFirefox = /firefox/i.test(navigator.userAgent);
 
     function applyPageZoom() {
-      if (!isFirefox) {
-        // Chromium/Edge: propriedade não-padrão, mas comporta como o zoom do navegador
-        document.body.style.zoom = (pageZoom * 100) + '%';
-      } else {
-        // Firefox: fallback via transform no body
-        document.body.style.transformOrigin = 'top left';
-        document.body.style.transform = `scale(${pageZoom})`;
-        // Ajusta a área útil para evitar cortes/barras de rolagem anômalas
-        document.body.style.width = `${100 / pageZoom}%`;
-        document.body.style.height = `${100 / pageZoom}%`;
-      }
+      // Aplica zoom SOMENTE no canvas, não na página inteira
+      // Assim a toolbar e o joystick ficam fixos sem serem afetados
+      const canvas = document.getElementById('gameCanvas');
+      if (!canvas) return;
+      canvas.style.transformOrigin = 'top center';
+      canvas.style.transform = pageZoom === 1 ? '' : `scale(${pageZoom})`;
+      // Compensa espaço extra gerado pelo scale
+      const extraH = canvas.offsetHeight * Math.max(0, pageZoom - 1);
+      canvas.style.marginBottom = extraH > 0 ? extraH + 'px' : '';
     }
 
     zoomOutBtn.addEventListener('click', () => {
@@ -126,6 +116,7 @@
       applyPageZoom();
     });
   </script>
+  <script src="js/joystick.js"></script>
 </body>
 
 </html>
