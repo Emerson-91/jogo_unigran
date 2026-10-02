@@ -32,9 +32,9 @@ function initAudioContext() {
 document.addEventListener('click', initAudioContext, { once: false });
 document.addEventListener('keydown', initAudioContext, { once: false });
 
-// ==========================================
+// 
 // EFEITOS SONOROS (SFX)
-// ==========================================
+// 
 
 /**
  * Som de Passo (Footstep)
@@ -257,9 +257,9 @@ function playWrongSound() {
   } catch (e) { }
 }
 
-// ==========================================
+// 
 // MÚSICA / AMBIÊNCIA DAS FASES (BGM)
-// ==========================================
+// 
 
 // Configuração das notas e arranjos musicais para cada ambiente/cena
 const PHASE_THEMES = {
@@ -327,80 +327,4 @@ function updatePhaseAudio(scene) {
   }, theme.tempo);
 }
 
-// ==========================================
-// SISTEMA DE PARTÍCULAS DE POEIRA
-// ==========================================
 
-const dustParticles = [];
-
-/**
- * Adiciona uma partícula de poeira ao caminhar/pular.
- */
-function spawnDustParticle(x, y, vx, vy, size, alpha = 0.6) {
-  dustParticles.push({
-    x: x + (Math.random() * 8 - 4),
-    y: y + (Math.random() * 4 - 2),
-    vx: vx || (Math.random() * 1.5 - 0.75),
-    vy: vy || (-Math.random() * 0.8 - 0.2),
-    size: size || (Math.random() * 4 + 3),
-    alpha: alpha,
-    maxAlpha: alpha,
-    life: 0,
-    maxLife: 18 + Math.floor(Math.random() * 10)
-  });
-}
-
-/**
- * Dispara poeira dos pés do personagem.
- * @param {Object} player - Instância do personagem Unicão.
- */
-function triggerFootstepDust(player) {
-  if (!player) return;
-  const feetX = player.x + player.w / 2;
-  const feetY = player.y + player.h - 4;
-
-  // Direção oposta ao movimento
-  const dirX = player.dx > 0 ? -1 : (player.dx < 0 ? 1 : 0);
-  spawnDustParticle(feetX, feetY, dirX * (Math.random() * 1.2 + 0.3), -Math.random() * 0.6 - 0.2, Math.random() * 4 + 3);
-}
-
-/**
- * Dispara poeira de aterrissagem em ambas as direções.
- */
-function triggerLandDust(player) {
-  if (!player) return;
-  const feetX = player.x + player.w / 2;
-  const feetY = player.y + player.h - 4;
-
-  for (let i = 0; i < 6; i++) {
-    const vx = (i % 2 === 0 ? 1 : -1) * (Math.random() * 2 + 0.5);
-    spawnDustParticle(feetX, feetY, vx, -Math.random() * 0.8 - 0.2, Math.random() * 5 + 4, 0.7);
-  }
-}
-
-/**
- * Atualiza e desenha todas as partículas de poeira no canvas.
- * @param {CanvasRenderingContext2D} ctx 
- */
-function updateAndDrawDustParticles(ctx) {
-  for (let i = dustParticles.length - 1; i >= 0; i--) {
-    const p = dustParticles[i];
-    p.life++;
-    p.x += p.vx;
-    p.y += p.vy;
-    p.size += 0.12; // Poeira se expande sutilmente
-    p.alpha = p.maxAlpha * (1 - p.life / p.maxLife);
-
-    if (p.life >= p.maxLife || p.alpha <= 0) {
-      dustParticles.splice(i, 1);
-      continue;
-    }
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, Math.max(0.5, p.size), 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(215, 205, 190, ${p.alpha.toFixed(2)})`; // Tom bege/terra sutil
-    ctx.fill();
-    ctx.restore();
-  }
-}

@@ -97,9 +97,10 @@ body {
 
 /* ===== Mobile: canvas escala para caber, título menor, toolbar sem zoom ===== */
 @media (max-width: 600px) {
-.game-container {
+  .game-container {
     margin-top: 16%;
-  }  
+  }
+
   .game-container h1 {
     font-size: 1em;
     margin-bottom: 4px;
@@ -169,7 +170,7 @@ button,
   font-family: 'PressStart2P-Regular', Arial, sans-serif;
 }
 
-/* ===== Botão Tela Cheia (padrão) ===== */
+/*  Botão Tela Cheia (padrão) */
 #fullscreenToggle {
   position: fixed;
   top: 12px;

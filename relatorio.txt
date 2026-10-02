@@ -106,3 +106,37 @@
 [2026-10-02T00:18:00.696Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
 [2026-10-02T00:18:00.712Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
 [2026-10-02T00:18:34.269Z] curso=Enfermagem total=40 curso=20 coletaveis=20 modo=quiz
+[2026-10-02T00:20:09.841Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:09.857Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:09.874Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:09.891Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:09.907Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:09.924Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:09.941Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:09.958Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:09.974Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:09.991Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.007Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.024Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.040Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.057Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.074Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.090Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.107Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.124Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.140Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.157Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.174Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.190Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.207Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.224Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.240Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.257Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.274Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.291Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.308Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.324Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.340Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:10.357Z] curso=Estética e Cosmética total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:20:45.787Z] curso=Administração total=80 curso=60 coletaveis=20 modo=quiz
+[2026-10-02T00:22:53.966Z] curso=Design de Interiores total=80 curso=60 coletaveis=20 modo=quiz
