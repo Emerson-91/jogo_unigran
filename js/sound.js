@@ -31,9 +31,9 @@ function initAudioContext() {
 document.addEventListener('click', initAudioContext, { once: false });
 document.addEventListener('keydown', initAudioContext, { once: false });
 
-// ==========================================
+// 
 // EFEITOS SONOROS (SFX)
-// ==========================================
+// 
 
 /**
  * Som de Passo (Footstep)
@@ -253,9 +253,9 @@ function playWrongSound() {
   } catch (e) { }
 }
 
-// ==========================================
+// 
 // MÚSICA / AMBIÊNCIA DAS FASES (BGM)
-// ==========================================
+// 
 
 const PHASE_THEMES = {
   fase1: { notes: [261.63, 329.63, 392.00, 523.25], tempo: 400, type: 'sine', vol: 0.15 },
