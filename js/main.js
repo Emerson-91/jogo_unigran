@@ -1,31 +1,45 @@
+/**
+ * main.js - Loop Principal do Jogo e Gerenciamento de Cenas
+ * 
+ * Controla o loop de atualização do Canvas (requestAnimationFrame),
+ * fluxo de trocas de cenas com efeito de fade, escuta de teclado
+ * e inicialização dos sistemas de som e mídia.
+ */
+
 const DEFAULT_WIDTH = 1000;
 const DEFAULT_HEIGHT = 600;
 const PUZZLE_WIDTH = 1280;
 const PUZZLE_HEIGHT = 720;
+
+// Configuração do Canvas
 canvas.width = DEFAULT_WIDTH;
 canvas.height = DEFAULT_HEIGHT;
 const ctx = canvas.getContext("2d");
 
+// Instância global do personagem principal e cena inicial
 let player = new Player(50, 500);
 let scene = "start";
 
-// Estado para transição de cenas com fade
+/**
+ * Estado para controle da transição de cena (Fade Out / Fade In)
+ */
 const sceneTransition = {
   active: false,
   phase: null, // 'fadeOut' ou 'fadeIn'
   alpha: 0,
-  duration: 500, // ms para cada fase
+  duration: 500, // Duração da transição em milissegundos
   startTime: 0,
   nextScene: null
 };
 
+/**
+ * Inicia a transição suave de tela (Fade Out / Fade In).
+ */
 function startSceneFade(nextScene, opts = {}) {
-  // Se instantâneo, troca direto
   if (opts.instant) {
     internalChangeScene(nextScene);
     return;
   }
-  // Se já em fade, apenas agenda a próxima cena
   if (sceneTransition.active) {
     sceneTransition.nextScene = nextScene;
     return;
@@ -35,41 +49,44 @@ function startSceneFade(nextScene, opts = {}) {
   sceneTransition.alpha = 0;
   sceneTransition.startTime = performance.now();
   sceneTransition.nextScene = nextScene;
-  // Congela player para evitar atravessar colisores durante transição
+
+  // Reseta velocidade do jogador durante a transição
   player.dx = 0;
   player.dy = 0;
   player.velY = 0;
 }
 
-// Mapeamento de backgrounds animados
+// Mapeamento de backgrounds das fases
 const BACKGROUNDS = {
   fasePredio: ['assets/bg_predio_1.png'],
   hubExatas: ['assets/bg_exatas_1.png', 'assets/bg_exatas_2.png'],
   hubHumanas: ['assets/bg_humanas_1.png', 'assets/bg_humanas_2.png'],
   hubBiologicas: ['assets/bg_bio_1.png', 'assets/bg_bio_2.png']
-  // Adicione outros conforme necessário
 };
 
-// Pré-carrega alguns backgrounds mais comuns para reduzir piscadas na primeira entrada
-; (function preloadBackgrounds() {
+// Pré-carregamento dos fundos de tela principais
+(function preloadBackgrounds() {
   try {
     Object.keys(BACKGROUNDS).forEach(key => {
       const arr = BACKGROUNDS[key];
       if (arr && arr[0]) getImage(arr[0]);
     });
-  } catch (e) { /* silencioso */ }
+  } catch (e) { }
 })();
 
 let bgFrame = 0;
 let bgTimer = Date.now();
 
-// Início do jogo
+// Evento do Botão Iniciar Jogo na tela de abertura
 document.getElementById("startButton").addEventListener("click", () => {
   const startScreenEl = document.getElementById("startScreen");
   const gameContainerEl = document.querySelector('.game-container');
   if (startScreenEl) startScreenEl.style.display = "none";
   if (gameContainerEl) gameContainerEl.style.display = "flex";
-  // Garante canvas visível e com tamanho padrão para fase1
+
+  // Inicializa áudio no primeiro clique do usuário
+  if (typeof initAudioContext === 'function') initAudioContext();
+
   canvas.style.display = "block";
   if (canvas.width !== DEFAULT_WIDTH || canvas.height !== DEFAULT_HEIGHT) {
     canvas.width = DEFAULT_WIDTH;
@@ -78,19 +95,24 @@ document.getElementById("startButton").addEventListener("click", () => {
   changeScene("fase1", { instant: true });
 });
 
+/**
+ * Altera internamente a cena ativa e reconfigura o modo do personagem.
+ */
 function internalChangeScene(newScene) {
-  // Ao mudar de cena, garanta que nenhum overlay de mídia anterior permaneça (ex.: GIF do quiz)
-  try { if (typeof hideMediaOverlay === 'function') hideMediaOverlay(); } catch (e) { /* silencioso */ }
+  try { if (typeof hideMediaOverlay === 'function') hideMediaOverlay(); } catch (e) { }
   scene = newScene;
   botoes = [];
-  // Telemetria por cena desativada: registro somente ao finalizar o jogo
-  // Reinicia a flag de relatório final quando começar fase/puzzle para permitir registrar novamente
+
+  // Atualiza a música/ambiência da nova fase
+  if (typeof updatePhaseAudio === 'function') updatePhaseAudio(newScene);
+
   try {
     if (scene === 'fase1' || scene === 'puzzle') {
       window.__finalScoreLogged = false;
     }
-  } catch (e) { /* silencioso */ }
-  if (["fase1", "fasePredio", "curso1", "curso2", "curso3"].includes(scene)) {
+  } catch (e) { }
+
+  if (["fase1", "fasePredio"].includes(scene)) {
     if (canvas.width !== DEFAULT_WIDTH || canvas.height !== DEFAULT_HEIGHT) {
       canvas.width = DEFAULT_WIDTH;
       canvas.height = DEFAULT_HEIGHT;
@@ -132,24 +154,27 @@ function internalChangeScene(newScene) {
   }
 }
 
+/**
+ * Função pública para solicitar mudança de cena (com fade por padrão).
+ */
 function changeScene(newScene, opts = {}) {
   startSceneFade(newScene, opts);
 }
 
+/**
+ * Desenha o fundo correspondente da cena atual.
+ */
 function drawBackground(ctx, scene) {
   if (scene === 'fim') {
-    // Cena final cuida do próprio fundo (gradiente profissional), não desenhar imagem
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     return;
   }
   const bgs = BACKGROUNDS[scene];
   if (bgs) {
-    // Usa cache de imagens para evitar piscadas (getImage definido em utils.js)
     const img = getImage(bgs[0]);
     if (img && img.complete && img.naturalWidth > 0) {
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     } else {
-      // Enquanto carrega mostra fundo sólido; próxima frame desenha imagem
       ctx.fillStyle = "#0066cc";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
@@ -159,37 +184,30 @@ function drawBackground(ctx, scene) {
   }
 }
 
-// Exemplo de uso em cada renderização de tela
+/**
+ * Loop Principal de Renderização e Atualização do Jogo
+ */
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Reinicia lista de botões a cada frame para permitir que o índice de seleção (hoverBtnIndex)
-  // aplique destaque corretamente quando navegado por teclado. Mantemos hoverBtnIndex.
-  // Isso também evita crescimento indefinido do array a cada frame.
+  // Limpa lista de botões da interface a cada frame
   if (typeof botoes !== 'undefined') {
     botoes = [];
   }
 
-  // Controle de animação dos NPCs (deve estar aqui!)
+  // Animação de idle dos NPCs
   if (Date.now() - npcAnimFrameTimer > 400) {
     npcAnimFrame = (npcAnimFrame + 1) % 2;
     npcAnimFrameTimer = Date.now();
   }
 
-  // Desenha o background animado
+  // Renderiza fundo da cena
   drawBackground(ctx, scene);
 
+  // Renderiza a cena atual conforme estado do jogo
   if (scene === "fase1") fase1(ctx, player, changeScene, canvas);
   else if (scene === "fasePredio") fasePredio(ctx, player, changeScene, canvas);
   else if (scene === "dialogoNPC") dialogoNPC(ctx, changeScene, canvas);
-  else if (scene === "explicacaoHumanas") explicacaoArea(
-    ctx,
-    changeScene,
-    canvas,
-    "Área 1",
-    "Estudo das pessoas, sociedade e expressão:\n• Administração\n• Direito\n• Psicologia\n• Publicidade",
-    "hubHumanas"
-  );
   else if (scene === "explicacaoHumanas") explicacaoArea(
     ctx,
     changeScene,
@@ -223,30 +241,31 @@ function update() {
   else if (scene === "curso") faseCurso(ctx, player, canvas, window.currentCursoName || "Curso", changeScene);
   else if (scene === "fim") cenaFim(ctx, canvas);
 
-  // Processar fade
+  // Processa a transição com efeito de fade
   if (sceneTransition.active) {
     const now = performance.now();
     const elapsed = now - sceneTransition.startTime;
     const t = Math.min(1, elapsed / sceneTransition.duration);
+
     if (sceneTransition.phase === 'fadeOut') {
-      sceneTransition.alpha = t; // 0 -> 1
-      try { if (typeof syncMediaOverlayFade === 'function') syncMediaOverlayFade(sceneTransition.alpha); } catch (e) { /* silencioso */ }
+      sceneTransition.alpha = t;
+      try { if (typeof syncMediaOverlayFade === 'function') syncMediaOverlayFade(sceneTransition.alpha); } catch (e) { }
       if (t >= 1) {
         internalChangeScene(sceneTransition.nextScene);
         sceneTransition.phase = 'fadeIn';
         sceneTransition.startTime = performance.now();
       }
     } else if (sceneTransition.phase === 'fadeIn') {
-      sceneTransition.alpha = 1 - t; // 1 -> 0
-      try { if (typeof syncMediaOverlayFade === 'function') syncMediaOverlayFade(sceneTransition.alpha); } catch (e) { /* silencioso */ }
+      sceneTransition.alpha = 1 - t;
+      try { if (typeof syncMediaOverlayFade === 'function') syncMediaOverlayFade(sceneTransition.alpha); } catch (e) { }
       if (t >= 1) {
         sceneTransition.active = false;
         sceneTransition.phase = null;
         sceneTransition.alpha = 0;
-        // Após finalizar o fade-in, se for cena final, esconda overlay de vez
-        try { if (typeof scene !== 'undefined' && scene === 'fim' && typeof hideMediaOverlay === 'function') hideMediaOverlay(); } catch (e) { /* silencioso */ }
+        try { if (typeof scene !== 'undefined' && scene === 'fim' && typeof hideMediaOverlay === 'function') hideMediaOverlay(); } catch (e) { }
       }
     }
+
     if (sceneTransition.alpha > 0) {
       ctx.save();
       ctx.fillStyle = `rgba(0,0,0,${sceneTransition.alpha})`;
@@ -258,10 +277,10 @@ function update() {
   requestAnimationFrame(update);
 }
 
-// ===== Movimento suave com estado de teclas =====
+// ===== Controle Teclado e Movimentação =====
 const keyState = { left: false, right: false, up: false, down: false };
-let lastHoriz = null; // 'left' | 'right'
-let lastVert = null;  // 'up' | 'down'
+let lastHoriz = null;
+let lastVert = null;
 
 function clearKeyState() {
   keyState.left = keyState.right = keyState.up = keyState.down = false;
@@ -269,7 +288,6 @@ function clearKeyState() {
 }
 
 function recomputeMovementFromKeys() {
-  // Horizontal
   let dx = 0;
   if (keyState.left && !keyState.right) { dx = -player.speed; lastHoriz = 'left'; }
   else if (keyState.right && !keyState.left) { dx = player.speed; lastHoriz = 'right'; }
@@ -282,7 +300,6 @@ function recomputeMovementFromKeys() {
   }
   player.dx = dx;
 
-  // Vertical (apenas no modo livre)
   if (player.mode === 'livre') {
     let dy = 0;
     if (keyState.up && !keyState.down) { dy = -player.speed; lastVert = 'up'; }
@@ -296,38 +313,44 @@ function recomputeMovementFromKeys() {
     }
     player.dy = dy;
   } else {
-    // Em plataforma, zera DY controlado por teclas; pulo é por velY
     player.dy = 0;
   }
 }
 
+// Pressionar tecla
 document.addEventListener("keydown", (e) => {
-  // Soft reload: F5 ou Ctrl+R fazem reset interno sem recarregar a página (mantém F11)
+  if (typeof initAudioContext === 'function') initAudioContext();
+
+  // Reset de atalho (F5 / Ctrl+R)
   if (e.key === 'F5' || (e.ctrlKey && (e.key === 'r' || e.key === 'R'))) {
     e.preventDefault();
-    try { if (typeof resetGame === 'function') resetGame(); } catch (err) { /* silencioso */ }
+    try { if (typeof resetGame === 'function') resetGame(); } catch (err) { }
     changeScene('fase1', { instant: true });
     return;
   }
-  if (sceneTransition.active) return; // ignora input durante fade
+
+  if (sceneTransition.active) return;
   const k = e.key;
+
   if (k === 'ArrowLeft' || k === 'ArrowRight' || k === 'ArrowUp' || k === 'ArrowDown') e.preventDefault();
   if (k === 'ArrowLeft' || k === 'a' || k === 'A') { keyState.left = true; lastHoriz = 'left'; }
   if (k === 'ArrowRight' || k === 'd' || k === 'D') { keyState.right = true; lastHoriz = 'right'; }
   if (k === 'ArrowUp' || k === 'w' || k === 'W') { keyState.up = true; lastVert = 'up'; }
   if (k === 'ArrowDown' || k === 's' || k === 'S') { keyState.down = true; lastVert = 'down'; }
 
-  // Pulo apenas no pressionar da tecla (modo plataforma)
+  // Ação de Pulo em modo plataforma
   if ((k === 'ArrowUp' || k === 'w' || k === 'W') && player.mode === 'plataforma' && !player.jumping) {
     player.velY = -10;
     player.jumping = true;
+    if (typeof playJumpSound === 'function') playJumpSound();
   }
 
   recomputeMovementFromKeys();
 });
 
+// Soltar tecla
 document.addEventListener("keyup", (e) => {
-  if (sceneTransition.active) return; // ignora input durante fade
+  if (sceneTransition.active) return;
   const k = e.key;
   if (k === 'ArrowLeft' || k === 'a' || k === 'A') keyState.left = false;
   if (k === 'ArrowRight' || k === 'd' || k === 'D') keyState.right = false;
@@ -336,13 +359,13 @@ document.addEventListener("keyup", (e) => {
   recomputeMovementFromKeys();
 });
 
-// Limpa estado de teclas ao iniciar fade para não "grudar" direção
+// Limpa estado de movimento ao iniciar fade
 const _origStartSceneFade = startSceneFade;
 startSceneFade = function (nextScene, opts = {}) {
   clearKeyState();
-  // Ao iniciar a transição, sincroniza a opacidade do overlay (deixa 100% visível; o fade irá escurecer)
-  try { if (typeof syncMediaOverlayFade === 'function') syncMediaOverlayFade(0); } catch (e) { /* silencioso */ }
+  try { if (typeof syncMediaOverlayFade === 'function') syncMediaOverlayFade(0); } catch (e) { }
   _origStartSceneFade(nextScene, opts);
 };
 
+// Inicia o loop do jogo
 update();

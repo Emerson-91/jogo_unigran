@@ -73,3 +73,36 @@
 [2026-04-21T15:40:12.750Z] curso=Fisioterapia total=40 curso=20 coletaveis=20 modo=quiz
 [2026-04-21T15:49:57.019Z] curso=Fisioterapia total=100 curso=80 coletaveis=20 modo=quiz
 [2026-04-21T16:03:35.301Z] curso=Fisioterapia total=60 curso=40 coletaveis=20 modo=quiz
+[2026-10-02T00:18:00.197Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.213Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.229Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.246Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.263Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.279Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.296Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.312Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.328Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.345Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.362Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.379Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.396Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.412Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.429Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.446Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.462Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.480Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.496Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.512Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.528Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.546Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.562Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.578Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.595Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.612Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.629Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.646Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.662Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.680Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.696Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:00.712Z] curso=Engenharia de Software total=90 curso=70 coletaveis=20 modo=memoria
+[2026-10-02T00:18:34.269Z] curso=Enfermagem total=40 curso=20 coletaveis=20 modo=quiz

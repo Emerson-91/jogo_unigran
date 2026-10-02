@@ -171,7 +171,7 @@ const isTouchDevice = () => ('ontouchstart' in window) || (navigator.maxTouchPoi
     const newDown = cy > threshold;
 
     if (keyState.left !== newLeft || keyState.right !== newRight ||
-        keyState.up !== newUp || keyState.down !== newDown) {
+      keyState.up !== newUp || keyState.down !== newDown) {
 
       keyState.left = newLeft;
       keyState.right = newRight;
@@ -253,37 +253,37 @@ const isTouchDevice = () => ('ontouchstart' in window) || (navigator.maxTouchPoi
     e.preventDefault();
     btnJump.classList.remove('pressed');
   }, { passive: false });
-/*
-  // ---- Botão de Interação (Enter / Space) ----
-  const btnInteract = document.getElementById('btn-interact');
-
-  function doInteract() {
-    // Dispara evento de teclado Enter para ativar diálogos/botões do jogo
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-    setTimeout(() => {
-      document.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', bubbles: true }));
-    }, 80);
-    // Também tenta click em canvas para jogos que usam mouse
-    const canvas = document.getElementById('gameCanvas');
-    if (canvas) {
-      const rect = canvas.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      canvas.dispatchEvent(new MouseEvent('click', { clientX: cx, clientY: cy, bubbles: true }));
+  /*
+    // ---- Botão de Interação (Enter / Space) ----
+    const btnInteract = document.getElementById('btn-interact');
+  
+    function doInteract() {
+      // Dispara evento de teclado Enter para ativar diálogos/botões do jogo
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      setTimeout(() => {
+        document.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', bubbles: true }));
+      }, 80);
+      // Também tenta click em canvas para jogos que usam mouse
+      const canvas = document.getElementById('gameCanvas');
+      if (canvas) {
+        const rect = canvas.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        canvas.dispatchEvent(new MouseEvent('click', { clientX: cx, clientY: cy, bubbles: true }));
+      }
     }
-  }
-
-  btnInteract.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    btnInteract.classList.add('pressed');
-    doInteract();
-  }, { passive: false });
-
-  btnInteract.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    btnInteract.classList.remove('pressed');
-  }, { passive: false });
-*/
+  
+    btnInteract.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      btnInteract.classList.add('pressed');
+      doInteract();
+    }, { passive: false });
+  
+    btnInteract.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      btnInteract.classList.remove('pressed');
+    }, { passive: false });
+  */
   // ---- Previne scroll/zoom indesejado durante o jogo ----
   document.addEventListener('touchmove', (e) => {
     if (container.classList.contains('visible')) {

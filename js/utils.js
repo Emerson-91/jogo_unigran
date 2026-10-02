@@ -1,8 +1,21 @@
+/**
+ * utils.js - Funções Utilitárias e Auxiliares do Canvas
+ * 
+ * Inclui:
+ * 1. Gerenciador e cache de imagens.
+ * 2. Controle de overlays de mídia (GIFs de quiz/desafios).
+ * 3. Criação de botões interativos e escuta de eventos do mouse/teclado.
+ * 4. Lógica de Drag & Drop para os minijogos/puzzles.
+ * 5. Detecção de colisões e gerador de balões de fala (Speech Bubbles).
+ */
+
 const canvas = document.getElementById("gameCanvas");
 let botoes = [];
 let hoverBtnIndex = -1;
 
-// ========= CACHE DE IMAGENS PARA EVITAR PISCAR =========
+// ==========================================
+// CACHE DE IMAGENS (Evita piscadas na renderização)
+// ==========================================
 const __imageCache = {};
 function getImage(src) {
   if (!src) return null;
@@ -14,8 +27,11 @@ function getImage(src) {
   return __imageCache[src];
 }
 
-// ========= OVERLAY DE MÍDIA (para GIF animado etc.) =========
+// ==========================================
+// OVERLAY DE MÍDIA (GIFs animados e vídeos)
+// ==========================================
 let __mediaOverlayEl = null;
+
 function ensureMediaOverlay() {
   if (__mediaOverlayEl) return __mediaOverlayEl;
   const img = document.createElement('img');
@@ -32,8 +48,7 @@ function ensureMediaOverlay() {
 }
 
 function setMediaOverlay(mediaBox, src) {
-  // Se estamos na cena final, não exibir overlay de mídia em hipótese alguma
-  try { if (typeof scene !== 'undefined' && scene === 'fim') { hideMediaOverlay(); return; } } catch (e) { /* silencioso */ }
+  try { if (typeof scene !== 'undefined' && scene === 'fim') { hideMediaOverlay(); return; } } catch (e) { }
   const el = ensureMediaOverlay();
   const rect = canvas.getBoundingClientRect();
   const scaleX = rect.width / canvas.width;
@@ -48,7 +63,7 @@ function setMediaOverlay(mediaBox, src) {
   el.style.height = `${h}px`;
   if (el.src !== src) el.src = src;
   el.style.display = 'block';
-  // Garante opacidade consistente com o fade atual, se existir
+
   try {
     if (window.sceneTransition && window.sceneTransition.active) {
       const a = window.sceneTransition.alpha || 0;
@@ -56,22 +71,19 @@ function setMediaOverlay(mediaBox, src) {
     } else {
       el.style.opacity = '1';
     }
-  } catch (e) { /* silencioso */ }
+  } catch (e) { }
 }
 
 function hideMediaOverlay() {
   if (__mediaOverlayEl) __mediaOverlayEl.style.display = 'none';
 }
 
-// Sincroniza opacidade do overlay com a máscara de fade da cena (0 = totalmente visível, 1 = totalmente coberto)
 function syncMediaOverlayFade(alpha) {
   if (!__mediaOverlayEl) return;
-  // Se estamos na tela final, não exibe
   if (typeof scene !== 'undefined' && scene === 'fim') { hideMediaOverlay(); return; }
   __mediaOverlayEl.style.opacity = String(1 - Math.max(0, Math.min(1, alpha)));
 }
 
-// Atualiza posição do overlay em caso de resize/scroll, mantendo alinhado ao canvas
 function updateMediaOverlayPosition(mediaBox) {
   if (!__mediaOverlayEl || !mediaBox) return;
   const rect = canvas.getBoundingClientRect();
@@ -83,7 +95,13 @@ function updateMediaOverlayPosition(mediaBox) {
   __mediaOverlayEl.style.height = `${mediaBox.maxH * scaleY}px`;
 }
 
-// Normaliza coordenadas do mouse para o tamanho real do canvas
+// ==========================================
+// INTERFACES E BOTÕES
+// ==========================================
+
+/**
+ * Converte coordenadas da tela (mouse) para as coordenadas internas do Canvas.
+ */
 function getMousePos(e) {
   const rect = canvas.getBoundingClientRect();
   const scaleX = canvas.width / rect.width;
@@ -107,23 +125,23 @@ canvas.addEventListener("mousemove", (e) => {
   });
 });
 
+/**
+ * Desenha um botão retangular estilizado com cantos arredondados e registra a ação de clique.
+ */
 function criarBotao(ctx, x, y, w, h, texto, acao) {
   const azul = "#0053A0";
   const azulHover = "#1976d2";
   const dourado = "#FDB515";
   const radius = 18;
 
-  // Suporte a múltiplas linhas: se texto contiver \n, quebrar em linhas
   const linhas = String(texto).split('\n');
   const fontBase = 20;
-  const lineHeight = 22; // ~ fontBase + 2
+  const lineHeight = 22;
   const totalTextHeight = linhas.length * lineHeight;
-  // Se o conteúdo não cabe verticalmente, aumentar altura mínima (mas sem alterar h recebido externamente)
   if (totalTextHeight + 16 > h) {
-    h = totalTextHeight + 16; // 8px padding top/bottom
+    h = totalTextHeight + 16;
   }
 
-  // Detecta se está em hover
   let idx = botoes.length;
   let isHover = idx === hoverBtnIndex;
 
@@ -145,10 +163,10 @@ function criarBotao(ctx, x, y, w, h, texto, acao) {
   ctx.lineWidth = 3;
   ctx.stroke();
 
-  // Se está selecionado via teclado (isHover) adiciona um brilho extra pulsando
+  // Efeito de destaque pulsante para hover/foco
   if (isHover) {
-    const t = (performance.now() / 400) % 1; // 0..1
-    const pulse = 0.4 + 0.6 * Math.sin(t * Math.PI * 2) * 0.5; // ~0.1..0.7
+    const t = (performance.now() / 400) % 1;
+    const pulse = 0.4 + 0.6 * Math.sin(t * Math.PI * 2) * 0.5;
     ctx.save();
     ctx.strokeStyle = `rgba(253,181,21,${pulse.toFixed(3)})`;
     ctx.lineWidth = 6;
@@ -167,7 +185,7 @@ function criarBotao(ctx, x, y, w, h, texto, acao) {
     ctx.restore();
   }
 
-  // Texto multiline centralizado verticalmente
+  // Renderiza texto do botão
   ctx.fillStyle = "#ffffff";
   ctx.font = `${fontBase}px 'Arial'`;
   ctx.textAlign = "center";
@@ -178,33 +196,33 @@ function criarBotao(ctx, x, y, w, h, texto, acao) {
   });
 
   ctx.restore();
-  // Guarda altura final (pode ter sido ajustada) para hit test
   botoes.push({ x, y, w, h, acao });
 }
 
+/**
+ * Registra uma área invisível clicável no canvas.
+ */
 function criarHitArea(x, y, w, h, acao) {
   botoes.push({ x, y, w, h, acao });
 }
 
-// Clique nos botões
+// Evento de clique no canvas para ativar os botões
 canvas.addEventListener("click", (e) => {
   const mouse = getMousePos(e);
   botoes.forEach(btn => {
     if (mouse.x > btn.x && mouse.x < btn.x + btn.w &&
       mouse.y > btn.y && mouse.y < btn.y + btn.h) {
+      if (typeof playButtonClickSound === 'function') playButtonClickSound();
       btn.acao();
     }
   });
 });
 
-// ===== Navegação por teclado entre botões (setas + Enter/Espaço) =====
-// Permite que o jogador use as setas para alternar qual botão está "hover" e Enter/Espaço para ativar
-// Útil para acessibilidade e quando o mouse não é conveniente.
+// Suporte a navegação entre botões por teclado (Setas + Enter/Espaço)
 document.addEventListener('keydown', (e) => {
-  if (!botoes || botoes.length === 0) return; // nada para navegar
+  if (!botoes || botoes.length === 0) return;
   const key = e.key;
   if (key === 'ArrowRight' || key === 'ArrowDown') {
-    // Próximo botão
     if (hoverBtnIndex === -1) hoverBtnIndex = 0; else hoverBtnIndex = (hoverBtnIndex + 1) % botoes.length;
     e.preventDefault();
   } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
@@ -215,13 +233,16 @@ document.addEventListener('keydown', (e) => {
       const btn = botoes[hoverBtnIndex];
       if (btn && typeof btn.acao === 'function') {
         e.preventDefault();
+        if (typeof playButtonClickSound === 'function') playButtonClickSound();
         btn.acao();
       }
     }
   }
 });
 
-// Arrastar e soltar para puzzle
+// ==========================================
+// ARRASTAR E SOLTAR (Minijogos e Puzzles)
+// ==========================================
 canvas.addEventListener("mousedown", (e) => {
   if (!window.puzzleState || !window.puzzleState.ativo) return;
   const mouse = getMousePos(e);
@@ -250,7 +271,6 @@ canvas.addEventListener("mouseup", () => {
     const obj = (ps.objetos || []).find(o => o.id === ps.draggingId);
     if (obj) {
       if (ps.modo === 'formas') {
-        // Encaixe por proximidade: usa interseção ou distância do centro como gatilho e ajusta também tamanho
         const slot = (ps.alvos || []).find(a => a.role === obj.role);
         if (slot) {
           const overlap = intersect(obj, slot);
@@ -263,23 +283,20 @@ canvas.addEventListener("mouseup", () => {
           }
         }
       } else if (ps.modo === 'ordem') {
-        // Snap magnético: encaixa no slot mais próximo se centro estiver a menos de um limiar
         const cx = obj.x + obj.w / 2;
         const cy = obj.y + obj.h / 2;
         let best = null; let bestDist = Infinity;
         (ps.alvos || []).forEach(slot => {
           const sx = slot.x + slot.w / 2;
           const sy = slot.y + slot.h / 2;
-          const dx = cx - sx; const dy = cy - sy;
-          const dist = Math.hypot(dx, dy);
+          const dist = Math.hypot(cx - sx, cy - sy);
           if (dist < bestDist) { bestDist = dist; best = slot; }
         });
-        const LIMIAR = 140; // distância máxima para grudar
+        const LIMIAR = 140;
         if (best && bestDist < LIMIAR) {
           obj.x = best.x; obj.y = best.y;
         }
       } else if (ps.modo === 'associacao') {
-        // Snap para associação: cola o item no alvo correto por proximidade/interseção
         const alvo = (ps.alvos || []).find(a => a.role === obj.role);
         if (alvo) {
           const overlap = intersect(obj, alvo);
@@ -291,7 +308,6 @@ canvas.addEventListener("mouseup", () => {
             const pad = 4;
             obj.x = alvo.x + pad;
             obj.y = alvo.y + pad;
-            // Mantém tamanho; se maior que o alvo, limita
             if (obj.w > alvo.w - pad * 2) obj.w = Math.max(20, alvo.w - pad * 2);
             if (obj.h > alvo.h - pad * 2) obj.h = Math.max(20, alvo.h - pad * 2);
           }
@@ -302,6 +318,9 @@ canvas.addEventListener("mouseup", () => {
   window.puzzleState.draggingId = null;
 });
 
+// ==========================================
+// COLISÕES E HELPERS MATEMÁTICOS
+// ==========================================
 function pointInside(px, py, r) {
   return px > r.x && px < r.x + r.w && py > r.y && py < r.y + r.h;
 }
@@ -315,29 +334,6 @@ function intersect(a, b) {
   );
 }
 
-function insideBox(a, b) {
-  return a.x >= b.x && a.y >= b.y && (a.x + a.w) <= (b.x + b.w) && (a.y + a.h) <= (b.y + b.h);
-}
-
-function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-  let words = text.split(" ");
-  let line = "";
-
-  for (let n = 0; n < words.length; n++) {
-    let testLine = line + words[n] + " ";
-    let metrics = ctx.measureText(testLine);
-    let testWidth = metrics.width;
-    if (testWidth > maxWidth && n > 0) {
-      ctx.fillText(line, x, y);
-      line = words[n] + " ";
-      y += lineHeight;
-    } else {
-      line = testLine;
-    }
-  }
-  ctx.fillText(line, x, y);
-}
-
 function colide(a, b) {
   return (
     a.x < b.x + b.w &&
@@ -347,14 +343,9 @@ function colide(a, b) {
   );
 }
 
-/**
- * Desenha um balão de fala com texto ajustado ao caixa.
- * options:
- *  - padding (px)
- *  - radius (px) borda arredondada
- *  - arrow: { x, y, size }
- *  - fontFamily
- */
+// ==========================================
+// BALÃO DE FALA (Speech Bubble)
+// ==========================================
 function drawSpeechBubble(ctx, x, y, w, h, text, options = {}) {
   const padding = options.padding ?? 12;
   const radius = options.radius ?? 10;
@@ -367,7 +358,6 @@ function drawSpeechBubble(ctx, x, y, w, h, text, options = {}) {
   function wrapWithFont(size) {
     ctx.font = `${size}px ${fontFamily}`;
     const maxW = Math.max(10, w - padding * 2);
-    // Suporte a quebras manuais: se existir \n, quebrar primeiro
     const rawLines = text.split(/\n/);
     const lines = [];
     rawLines.forEach(segment => {
@@ -385,27 +375,22 @@ function drawSpeechBubble(ctx, x, y, w, h, text, options = {}) {
       }
       if (line) lines.push(line);
     });
-    // Se columns > 1 reorganiza linhas bullet em colunas equilibradas
+
     let colLines = lines;
     const columns = options.columns && options.columns > 1 ? Math.min(options.columns, 4) : 1;
     let matrix = [];
     if (columns > 1) {
-      // Detecta bullets (linhas que começam com • ) ignorando título (primeira linha pode ser título)
-      const titleMaybe = colLines[0];
       const bulletStartIndex = colLines.findIndex((l, idx) => idx > 0 && /^•\s?/.test(l));
       if (bulletStartIndex !== -1) {
         const header = colLines.slice(0, bulletStartIndex);
         const bullets = colLines.slice(bulletStartIndex);
-        // Distribui bullets em colunas equilibradas
         const perCol = Math.ceil(bullets.length / columns);
-        matrix = header.map(h => [h]); // header cada um será tratado como linha única antes
+        matrix = header.map(h => [h]);
         const bulletCols = [];
         for (let c = 0; c < columns; c++) {
           bulletCols.push(bullets.slice(c * perCol, (c + 1) * perCol));
         }
-        // Flatten visual: armazenar estrutura para desenhar depois
         colLines = header.concat(bulletCols.flat());
-        // Guardar estrutura para desenho
         wrapWithFont._layout = { header, bulletCols, columns };
       } else {
         wrapWithFont._layout = null;
@@ -424,7 +409,6 @@ function drawSpeechBubble(ctx, x, y, w, h, text, options = {}) {
     wrap = wrapWithFont(fontSize);
   }
 
-  // desenha caixa arredondada
   ctx.save();
   ctx.fillStyle = options.bgColor ?? 'white';
   ctx.strokeStyle = options.borderColor ?? '#0053A0';
@@ -452,7 +436,6 @@ function drawSpeechBubble(ctx, x, y, w, h, text, options = {}) {
   ctx.fill();
   ctx.stroke();
 
-  // Texto centralizado
   ctx.fillStyle = options.textColor ?? '#00315E';
   ctx.font = `${fontSize}px ${fontFamily}`;
   ctx.textAlign = "center";
@@ -461,7 +444,6 @@ function drawSpeechBubble(ctx, x, y, w, h, text, options = {}) {
   let ty = startY;
   if (wrap.layout && wrap.layout.columns > 1) {
     const { header, bulletCols, columns } = wrap.layout;
-    // Desenha header centralizado (se existir)
     let ty2 = y + padding;
     header.forEach(hline => {
       ctx.fillText(hline, centerX, ty2);
@@ -470,9 +452,6 @@ function drawSpeechBubble(ctx, x, y, w, h, text, options = {}) {
     const usableW = w - padding * 2;
     const colW = usableW / columns;
     const startX = x + padding;
-    let maxBulletRows = 0;
-    bulletCols.forEach(col => { if (col.length > maxBulletRows) maxBulletRows = col.length; });
-    // Desenha bullets em colunas
     for (let c = 0; c < bulletCols.length; c++) {
       const col = bulletCols[c];
       const colCenter = startX + colW * c + colW / 2;

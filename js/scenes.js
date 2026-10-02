@@ -85,18 +85,18 @@ const COORD_ANIM_IMAGES = {
 // Pré-carrega coordenadores 
 try {
   Object.values(COORD_ANIM_IMAGES).forEach(arr => arr.forEach(f => getImage(f)));
-} catch (e) {  }
+} catch (e) { }
 
 function gerarSlugCurso(nome) {
   if (!nome) return '';
   return nome
     .toLowerCase()
-    .normalize('NFD').replace(/\p{Diacritic}/gu, '') 
-    .replace(/\s+e\s+/g, ' ') 
-    .replace(/\s+de\s+/g, ' ') 
+    .normalize('NFD').replace(/\p{Diacritic}/gu, '')
+    .replace(/\s+e\s+/g, ' ')
+    .replace(/\s+de\s+/g, ' ')
     .replace(/\s+da\s+/g, ' ')
     .replace(/\s+do\s+/g, ' ')
-    .replace(/\s+/g, '') 
+    .replace(/\s+/g, '')
     .replace(/[^a-z0-9_]/g, '');
 }
 
@@ -117,7 +117,7 @@ function drawCourseBackground(ctx, canvas, curso) {
   if (!curso) return;
   if (!window._bgCache) window._bgCache = {};
   const prefix = getCourseBgPrefix(curso);
-  if (!prefix) return; 
+  if (!prefix) return;
   if (!window._bgCache[prefix]) {
     window._bgCache[prefix] = {
       frame: 0,
@@ -184,7 +184,7 @@ const HUB_NAV_IMAGES = {
   try {
     Object.values(PORTAL_IMAGES).forEach(src => getImage(src));
     Object.values(NPC_ANIM_IMAGES).forEach(arr => arr.forEach(f => getImage(f)));
-  } catch (e) {  }
+  } catch (e) { }
 })();
 
 function desenharPortalNavegacao(ctx, x, y, w, h, tipo, player, destino, changeScene) {
@@ -210,7 +210,7 @@ function desenharPortalNavegacao(ctx, x, y, w, h, tipo, player, destino, changeS
     ctx.fillText(tipo === 'proximo' ? '↑' : '↓', x + w / 2, y + h / 2);
     ctx.restore();
     if (img && !img.complete) {
-      img.onload = () => {};
+      img.onload = () => { };
     }
   }
   if (hovered) {
@@ -223,7 +223,7 @@ function desenharPortalNavegacao(ctx, x, y, w, h, tipo, player, destino, changeS
   }
 }
 
-const BREATHE_AMP = 1; 
+const BREATHE_AMP = 1;
 
 // ==== NPC inicial (recepcionista) ==== 
 const NPC_INICIO_IMGS = [
@@ -276,8 +276,8 @@ function drawNpcTopHalf(ctx, imgSrc, x, y, w, h, borderColor = "#FDB515") {
   const img = getImage(imgSrc);
   if (img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
     const srcW = img.naturalWidth;
-    const srcH = img.naturalHeight / 2; 
-    
+    const srcH = img.naturalHeight / 2;
+
     ctx.drawImage(img, 0, 0, srcW, srcH, x, y, w, h);
   } else {
     ctx.fillStyle = borderColor;
@@ -308,7 +308,7 @@ function resetGame() {
     window.puzzleState.modo = null;
   }
   window._fimAnim = null;
-  try { if (typeof hideMediaOverlay === 'function') hideMediaOverlay(); } catch (e) {  }
+  try { if (typeof hideMediaOverlay === 'function') hideMediaOverlay(); } catch (e) { }
   window.currentCursoName = null;
   if (window.player) {
     try {
@@ -316,7 +316,7 @@ function resetGame() {
       window.player.y = 0;
       window.player.vx = 0;
       window.player.vy = 0;
-    } catch (e) {  }
+    } catch (e) { }
   }
 }
 
@@ -340,7 +340,7 @@ function fase1(ctx, player, changeScene, canvas) {
   ctx.fillRect(canvas.width - 190, canvas.height - groundH - 75, 100, 75);
 
   // Portal inicial (imagem)
-  const portalW = 100, portalH = 120; 
+  const portalW = 100, portalH = 120;
   const portalX = canvas.width - 190;
   const portalY = canvas.height - groundH - portalH;
   const portalImg = getImage("assets/portais/portal_inicial.png");
@@ -362,7 +362,7 @@ function fase1(ctx, player, changeScene, canvas) {
   const itemW = 40, itemH = 40;
 
   // Posição dos itens flutuando
-   const item1 = { x: 300, y: canvas.height - groundH - 170, w: itemW, h: itemH };
+  const item1 = { x: 300, y: canvas.height - groundH - 170, w: itemW, h: itemH };
   const item2 = { x: 600, y: canvas.height - groundH - 80, w: itemW, h: itemH };
 
   // Alterna o frame a cada 400ms
@@ -484,7 +484,7 @@ function dialogoPadrao(ctx, avatarLabel, npcLabel, textoBalao, botoesArray, canv
   ];
   const npcImgTop = npcAnimImgs[npcAnimFrame % 2];
   // Fator de expansão horizontal para evitar aparência "esticada" verticalmente pelo zoom
-  const npcScaleX = 1.25; 
+  const npcScaleX = 1.25;
   const expandedW = npcW * npcScaleX;
   const offsetX = (expandedW - npcW) / 2;
   const drawX = npcX - offsetX;
@@ -766,7 +766,7 @@ function hub(ctx, player, changeScene, canvas) {
 }
 
 function faseCurso(ctx, player, canvas, curso, changeScene) {
-  const GROUND_OFFSET = 150; 
+  const GROUND_OFFSET = 150;
   let groundY = canvas.height - GROUND_OFFSET;
   ctx.fillStyle = '#EAF3FF';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -782,20 +782,20 @@ function faseCurso(ctx, player, canvas, curso, changeScene) {
   player.updatePlataforma(groundY);
   player.draw(ctx);
 
-  
+
   const portalEsquerda = { x: 0, y: 0, w: 40, h: canvas.height };
   if (colide(player, portalEsquerda)) {
     changeScene(cursoParaHub(curso));
-    return; 
+    return;
   }
 
-  let npcW = 100, npcH = 140; 
+  let npcW = 100, npcH = 140;
   if (curso === 'Estética e Cosmética') {
-    npcW = Math.round(npcW * 0.85); 
+    npcW = Math.round(npcW * 0.85);
   }
   const needsSmaller = (curso === 'Ciências Contábeis' || curso === 'Radiologia');
   if (needsSmaller) {
-    const scale = 0.85; 
+    const scale = 0.85;
     npcW = Math.round(npcW * scale);
     npcH = Math.round(npcH * scale);
   }
@@ -803,7 +803,7 @@ function faseCurso(ctx, player, canvas, curso, changeScene) {
   let npcY = groundY - npcH;
 
   if (curso === 'Engenharia de Software') {
-    const OFFSET_X = 90; 
+    const OFFSET_X = 90;
     npcX = Math.min(npcX + OFFSET_X, canvas.width - npcW);
   }
 
@@ -887,7 +887,7 @@ function hubHumanas(ctx, player, changeScene, canvas) {
   desenharPortalNavegacao(
     ctx,
     (canvas.width - 120) / 2,
-    0, 
+    0,
     120,
     70,
     'proximo',
@@ -935,7 +935,7 @@ function hubBiologicas(ctx, player, changeScene, canvas) {
 
 function desenharHubBase(ctx, canvas, titulo) {
   ctx.save();
-  ctx.globalAlpha = 0.18; 
+  ctx.globalAlpha = 0.18;
   ctx.fillStyle = "#f0d9b5";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.restore();
@@ -947,7 +947,7 @@ function desenharPortaisComNPCs(ctx, player, changeScene, canvas, cursos, hubSce
   const startY = 160;
   const gapX = 260;
   const gapY = 200;
-  const portalW = 120; 
+  const portalW = 120;
   const portalH = 120;
 
   let colunas = Math.max(1, Math.floor((canvas.width - startX - portalW) / gapX) + 1);
@@ -962,12 +962,12 @@ function desenharPortaisComNPCs(ctx, player, changeScene, canvas, cursos, hubSce
     ctx.strokeRect(x, y, portalW, portalH);
 
     let npcX = x + 10;
-    const baseNpcY = y + portalH + 10; 
+    const baseNpcY = y + portalH + 10;
     let npcW = 60;
     let npcH = 80;
     if (curso.nome === 'Publicidade' || curso.nome === 'Psicologia') {
-      const extraH = 27; 
-      const extraW = 22; 
+      const extraH = 27;
+      const extraW = 22;
       npcH += extraH;
       npcW += extraW;
       // Reposiciona Y para manter os pés no mesmo lugar
@@ -1022,7 +1022,7 @@ function desenharPortaisComNPCs(ctx, player, changeScene, canvas, cursos, hubSce
 
 function desenharPortaisSaguao(ctx, player, changeScene, canvas, cursos, hubScene, opts = {}) {
   const portalW = 140, portalH = 140, npcW = 60, npcH = 80;
-  const margem = (typeof opts.margin === 'number') ? opts.margin : 60; 
+  const margem = (typeof opts.margin === 'number') ? opts.margin : 60;
   const width = canvas.width, height = canvas.height;
 
   // Calcula posições: 4 cantos + 3 laterais 
@@ -1043,7 +1043,7 @@ function desenharPortaisSaguao(ctx, player, changeScene, canvas, cursos, hubScen
     { x: width - portalW - margem, y: height / 2 - portalH / 2, npcX: width - portalW - margem - npcW - 10, npcY: height / 2 + Math.sin(Date.now() / 600) * BREATHE_AMP, npcDir: 'left' }
   ];
 
- 
+
   while (posicoes.length < cursos.length) {
     // base centro
     posicoes.push({
@@ -1077,7 +1077,7 @@ function desenharPortaisSaguao(ctx, player, changeScene, canvas, cursos, hubScen
 
     // Ajuste específico: subir mais o portal de Fisioterapia na área de Biológicas
     if (hubScene === 'hubBiologicas' && curso.nome === 'Fisioterapia') {
-      const OFFSET_UP = 10; 
+      const OFFSET_UP = 10;
       const newY = Math.max(margem, p.y - OFFSET_UP);
       const delta = p.y - newY;
       p.y = newY;
@@ -1109,15 +1109,15 @@ function desenharPortaisSaguao(ctx, player, changeScene, canvas, cursos, hubScen
       const extraW = 18;
       npcHeight += extraH;
       npcWidth += extraW;
-      npcY -= extraH; 
-      npcX -= extraW / 2; 
+      npcY -= extraH;
+      npcX -= extraW / 2;
     }
     if (curso.nome === 'Enfermagem') {
       const reduceW = 10; // pixels
       const newW = Math.max(40, npcWidth - reduceW);
       const delta = npcWidth - newW;
       npcWidth = newW;
-      npcX += delta / 2; 
+      npcX += delta / 2;
     }
     // NPC estático, sem respiração
     // Sombra oval
@@ -1189,11 +1189,11 @@ function dialogoCurso(ctx, changeScene, canvas) {
 
 function dialogoCursoInfo(ctx, changeScene, canvas) {
   const curso = window.currentCursoName || "Curso";
-  
+
   const descricaoCurso = getCursoDescricao(curso);
   const complementoCoord = (typeof EXPLICACOES_COORDENADOR !== 'undefined' && EXPLICACOES_COORDENADOR[curso]) ? EXPLICACOES_COORDENADOR[curso] : '';
   if (typeof window.dialogoCoordPage !== 'number') window.dialogoCoordPage = 0;
-  const page = window.dialogoCoordPage; 
+  const page = window.dialogoCoordPage;
   // Descrição do puzzle por curso 
   function getPuzzleDescricaoPorCurso(curso) {
     let mode = 'quiz';
@@ -1217,7 +1217,7 @@ function dialogoCursoInfo(ctx, changeScene, canvas) {
   // Layout 3 colunas
   let avatarW = 100, avatarH = 140;
   if (curso === 'Estética e Cosmética') {
-    avatarW = Math.round(avatarW * 0.85); 
+    avatarW = Math.round(avatarW * 0.85);
   }
   const balaoW = 500, balaoH = 220;
   const yBase = 180;
@@ -1311,7 +1311,7 @@ function dialogoCursoInfo(ctx, changeScene, canvas) {
     });
   }
 
-  
+
   if (typeof criarHitArea === 'function') {
     criarHitArea(0, 0, 40, canvas.height, () => {
       changeScene(cursoParaHub(curso));
@@ -1365,7 +1365,7 @@ function isCoordenadoraCurso(curso) {
 }
 
 function cenaFim(ctx, canvas) {
-  
+
   try { if (typeof hideMediaOverlay === 'function') hideMediaOverlay(); } catch (e) { /* silencioso */ }
   const ps = window.puzzleState || {};
   const puzzleScore = typeof ps.lastScore === 'number' ? ps.lastScore : (ps.score || 0);
@@ -1490,7 +1490,7 @@ function cenaFim(ctx, canvas) {
   criarBotao(ctx, cardX + 40, cardY + cardH - 90, 220, 50, 'Voltar ao Início', () => {
     // Reseta estado de jogo
     window._fimAnim = null;
-    try { if (typeof hideMediaOverlay === 'function') hideMediaOverlay(); } catch (e) {  }
+    try { if (typeof hideMediaOverlay === 'function') hideMediaOverlay(); } catch (e) { }
     if (typeof resetGame === 'function') resetGame();
     // Mostra tela inicial e oculta container do jogo
     const startScreen = document.getElementById('startScreen');

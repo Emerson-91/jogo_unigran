@@ -242,6 +242,7 @@ function drawPuzzleOrdem(ctx, ps) {
       }
     });
     if (corretos === ps.objetos.length) {
+      if (typeof playCorrectSound === 'function') playCorrectSound();
       ps.score = Math.min(80, ps.score + QUIZ_CORRECT_VALUE);
       ps.feedback = 'Correto!';
       ps.feedbackColor = PUZZLE_THEME.correct;
@@ -251,6 +252,7 @@ function drawPuzzleOrdem(ctx, ps) {
         if (ps.etapa >= totalQuestoes) finalizarPuzzle(); else { prepararOrdem(ps); ps.feedback = ''; }
       }, 800);
     } else {
+      if (typeof playWrongSound === 'function') playWrongSound();
       // Mostra gabarito abaixo e marca incorretos
       ps.feedback = 'Alguns estão fora da ordem. Veja o gabarito abaixo.';
       ps.feedbackColor = PUZZLE_THEME.wrong;
@@ -450,10 +452,12 @@ function drawPuzzleFormas(ctx, ps) {
     const pontos = Math.round((corretas / total) * alvoMax);
     ps.score = pontos; // define diretamente a pontuação do puzzle de formas
     if (corretas === total) {
+      if (typeof playCorrectSound === 'function') playCorrectSound();
       ps.feedback = 'Planta montada com sucesso!';
       ps.feedbackColor = PUZZLE_THEME.correct;
       setTimeout(() => finalizarPuzzle(), 600);
     } else {
+      if (typeof playWrongSound === 'function') playWrongSound();
       const erros = total - corretas;
       ps.feedback = `Faltam ${erros} ambiente(s) no lugar correto. (${corretas}/${total})`;
       ps.feedbackColor = PUZZLE_THEME.wrong;
@@ -540,10 +544,12 @@ function drawPuzzleQuiz(ctx, ps) {
       criarBotao(ctx, leftPad, y, btnW, 50, wrapped, () => {
         if (ps.quizAnswered[idx]) return; // evita duplicar pontos
         if (i !== q.correta) {
+          if (typeof playWrongSound === 'function') playWrongSound();
           ps.quizHighlight = { wrongIndex: i, correctIndex: q.correta, baseY };
           ps.feedback = 'Resposta incorreta.';
           ps.feedbackColor = PUZZLE_THEME.wrong;
         } else {
+          if (typeof playCorrectSound === 'function') playCorrectSound();
           ps.quizHighlight = { wrongIndex: null, correctIndex: q.correta, baseY };
           ps.feedback = 'Correto!';
           ps.feedbackColor = PUZZLE_THEME.correct;
@@ -1009,6 +1015,7 @@ function flipMemCard(ps, id) {
     mem.paresVirados = (mem.paresVirados || 0) + 1;
     const [a, b] = mem.flipped;
     if (a.pair === b.pair) {
+      if (typeof playCorrectSound === 'function') playCorrectSound();
       a.matched = b.matched = true;
       mem.matchedCount += 2;
       ps.score = Math.min(80, ps.score + 20); // acerto +20
@@ -1017,6 +1024,7 @@ function flipMemCard(ps, id) {
       mem.flipped = [];
       mem.lock = false;
     } else {
+      if (typeof playWrongSound === 'function') playWrongSound();
       // Exibe mensagem de "-5 pontos" apenas se realmente houver desconto
       const prevScore = ps.score;
       if (ps.curso === 'Psicologia') {
@@ -1051,6 +1059,7 @@ function shuffleArray(arr) {
 
 function finalizarPuzzle() {
   const ps = window.puzzleState;
+  if (typeof playCorrectSound === 'function') playCorrectSound();
   ps.ativo = false;
   ps.finalizado = true; // impede reinicialização automática antes da cena fim
   // Garante que nenhum GIF (overlay) fique visível após o término
