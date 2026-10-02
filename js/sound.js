@@ -1,10 +1,9 @@
 /**
- * sound.js - Sistema de Áudio (Sintetizador Web Audio API) e Efeitos de Poeira
+ * sound.js - Sistema de Áudio (Sintetizador Web Audio API)
  *
  * Fornece:
- * 1. Sons de passos, pulo, moedas, portais, botões e respostas de puzzles.
+ * 1. Efeitos sonoros para passos, pulo, moedas, portais, botões e respostas dos puzzles.
  * 2. Música/Ambiência de fundo procedural para cada fase/cena do jogo.
- * 3. Sistema de partículas de poeira nos pés do personagem ao caminhar.
  */
 
 // Instância global do AudioContext (inicializado após interação do usuário)
@@ -32,23 +31,22 @@ function initAudioContext() {
 document.addEventListener('click', initAudioContext, { once: false });
 document.addEventListener('keydown', initAudioContext, { once: false });
 
-// 
+// ==========================================
 // EFEITOS SONOROS (SFX)
-// 
+// ==========================================
 
 /**
  * Som de Passo (Footstep)
- * Gera um ruído filtrado de curta duração para simular um passo na terra/chão.
+ * Ruído filtrado de curta duração simulando passos no chão.
  */
 function playFootstepSound() {
   if (!audioCtx || audioCtx.state !== 'running') return;
 
   try {
-    const bufferSize = audioCtx.sampleRate * 0.05; // 50ms de áudio
+    const bufferSize = audioCtx.sampleRate * 0.06;
     const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
     const output = buffer.getChannelData(0);
 
-    // Preenche com ruído branco suave
     for (let i = 0; i < bufferSize; i++) {
       output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
     }
@@ -56,27 +54,25 @@ function playFootstepSound() {
     const whiteNoise = audioCtx.createBufferSource();
     whiteNoise.buffer = buffer;
 
-    // Filtro Passa-Faixa para dar timbre de terra/passo
     const filter = audioCtx.createBiquadFilter();
     filter.type = 'bandpass';
-    filter.frequency.value = 180 + Math.random() * 60; // Frequência variável para variação natural
-    filter.Q.value = 3.0;
+    filter.frequency.value = 220 + Math.random() * 80;
+    filter.Q.value = 2.5;
 
     const gainNode = audioCtx.createGain();
-    gainNode.gain.setValueAtTime(0.12, audioCtx.currentTime); // Volume suave
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+    gainNode.gain.setValueAtTime(0.45, audioCtx.currentTime); // Volume amplificado
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
 
     whiteNoise.connect(filter);
     filter.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
     whiteNoise.start();
-  } catch (e) { /* Silencioso se houver restrição de áudio */ }
+  } catch (e) { }
 }
 
 /**
  * Som de Pulo (Jump)
- * Sweep de frequência ascendente.
  */
 function playJumpSound() {
   if (!audioCtx || audioCtx.state !== 'running') return;
@@ -86,10 +82,10 @@ function playJumpSound() {
     const gain = audioCtx.createGain();
 
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.15);
+    osc.frequency.setValueAtTime(160, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(450, audioCtx.currentTime + 0.15);
 
-    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.45, audioCtx.currentTime); // Volume amplificado
     gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
 
     osc.connect(gain);
@@ -111,17 +107,17 @@ function playLandSound() {
     const gain = audioCtx.createGain();
 
     osc.type = 'triangle';
-    osc.frequency.setValueAtTime(120, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.1);
+    osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(45, audioCtx.currentTime + 0.12);
 
-    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.50, audioCtx.currentTime); // Volume amplificado
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
 
     osc.connect(gain);
     gain.connect(audioCtx.destination);
 
     osc.start();
-    osc.stop(audioCtx.currentTime + 0.1);
+    osc.stop(audioCtx.currentTime + 0.12);
   } catch (e) { }
 }
 
@@ -140,7 +136,7 @@ function playCoinSound() {
     osc.frequency.setValueAtTime(987.77, now); // B5
     osc.frequency.setValueAtTime(1318.51, now + 0.08); // E6
 
-    gain.gain.setValueAtTime(0.15, now);
+    gain.gain.setValueAtTime(0.45, now); // Volume amplificado
     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
 
     osc.connect(gain);
@@ -163,10 +159,10 @@ function playPortalSound() {
     const gain = audioCtx.createGain();
 
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(300, now);
-    osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
+    osc.frequency.setValueAtTime(320, now);
+    osc.frequency.exponentialRampToValueAtTime(880, now + 0.3);
 
-    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.setValueAtTime(0.50, now); // Volume amplificado
     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
 
     osc.connect(gain);
@@ -189,17 +185,17 @@ function playButtonClickSound() {
     const gain = audioCtx.createGain();
 
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(600, now);
-    osc.frequency.exponentialRampToValueAtTime(200, now + 0.04);
+    osc.frequency.setValueAtTime(650, now);
+    osc.frequency.exponentialRampToValueAtTime(220, now + 0.05);
 
-    gain.gain.setValueAtTime(0.1, now);
-    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.04);
+    gain.gain.setValueAtTime(0.35, now); // Volume amplificado
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
 
     osc.connect(gain);
     gain.connect(audioCtx.destination);
 
     osc.start(now);
-    osc.stop(now + 0.04);
+    osc.stop(now + 0.05);
   } catch (e) { }
 }
 
@@ -219,14 +215,14 @@ function playCorrectSound() {
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(freq, startTime);
 
-      gain.gain.setValueAtTime(0.15, startTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.15);
+      gain.gain.setValueAtTime(0.45, startTime); // Volume amplificado
+      gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.18);
 
       osc.connect(gain);
       gain.connect(audioCtx.destination);
 
       osc.start(startTime);
-      osc.stop(startTime + 0.15);
+      osc.stop(startTime + 0.18);
     });
   } catch (e) { }
 }
@@ -246,7 +242,7 @@ function playWrongSound() {
     osc.frequency.setValueAtTime(180, now);
     osc.frequency.exponentialRampToValueAtTime(110, now + 0.2);
 
-    gain.gain.setValueAtTime(0.15, now);
+    gain.gain.setValueAtTime(0.40, now); // Volume amplificado
     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
 
     osc.connect(gain);
@@ -257,20 +253,19 @@ function playWrongSound() {
   } catch (e) { }
 }
 
-// 
+// ==========================================
 // MÚSICA / AMBIÊNCIA DAS FASES (BGM)
-// 
+// ==========================================
 
-// Configuração das notas e arranjos musicais para cada ambiente/cena
 const PHASE_THEMES = {
-  fase1: { notes: [261.63, 329.63, 392.00, 523.25], tempo: 400, type: 'sine', vol: 0.03 },      // Entrada (alegre, pentatônico)
-  fasePredio: { notes: [261.63, 329.63, 392.00, 523.25], tempo: 400, type: 'sine', vol: 0.03 },
-  hubHumanas: { notes: [349.23, 440.00, 523.25, 659.25], tempo: 600, type: 'triangle', vol: 0.03 },  // Humanas (suave, acolhedor)
-  hubExatas: { notes: [220.00, 277.18, 329.63, 440.00], tempo: 300, type: 'square', vol: 0.025 },    // Exatas (tecnológico, sintetizado)
-  hubBiologicas: { notes: [293.66, 369.99, 440.00, 587.33], tempo: 500, type: 'sine', vol: 0.03 },  // Biológicas (natural, harmonioso)
-  puzzle: { notes: [329.63, 392.00, 493.88, 587.33], tempo: 450, type: 'sine', vol: 0.025 },       // Puzzle (concentração)
-  curso: { notes: [261.63, 329.63, 392.00, 523.25], tempo: 500, type: 'triangle', vol: 0.03 },
-  fim: { notes: [523.25, 659.25, 783.99, 1046.50, 783.99, 1046.50], tempo: 250, type: 'triangle', vol: 0.04 } // Vitória / Fim
+  fase1: { notes: [261.63, 329.63, 392.00, 523.25], tempo: 400, type: 'sine', vol: 0.15 },
+  fasePredio: { notes: [261.63, 329.63, 392.00, 523.25], tempo: 400, type: 'sine', vol: 0.15 },
+  hubHumanas: { notes: [349.23, 440.00, 523.25, 659.25], tempo: 600, type: 'triangle', vol: 0.15 },
+  hubExatas: { notes: [220.00, 277.18, 329.63, 440.00], tempo: 300, type: 'square', vol: 0.12 },
+  hubBiologicas: { notes: [293.66, 369.99, 440.00, 587.33], tempo: 500, type: 'sine', vol: 0.15 },
+  puzzle: { notes: [329.63, 392.00, 493.88, 587.33], tempo: 450, type: 'sine', vol: 0.14 },
+  curso: { notes: [261.63, 329.63, 392.00, 523.25], tempo: 500, type: 'triangle', vol: 0.15 },
+  fim: { notes: [523.25, 659.25, 783.99, 1046.50, 783.99, 1046.50], tempo: 250, type: 'triangle', vol: 0.20 }
 };
 
 /**
@@ -281,13 +276,11 @@ function updatePhaseAudio(scene) {
   if (currentMusicScene === scene) return;
   currentMusicScene = scene;
 
-  // Para música anterior se houver
   if (musicInterval) {
     clearInterval(musicInterval);
     musicInterval = null;
   }
 
-  // Identifica o tema da cena
   let key = scene;
   if (!PHASE_THEMES[key]) {
     if (scene.startsWith('hub')) key = scene;
@@ -301,7 +294,6 @@ function updatePhaseAudio(scene) {
 
   let noteIdx = 0;
 
-  // Loop procedural de melodia ambiente
   musicInterval = setInterval(() => {
     if (!audioCtx || audioCtx.state !== 'running') return;
     try {
@@ -326,5 +318,3 @@ function updatePhaseAudio(scene) {
     } catch (e) { }
   }, theme.tempo);
 }
-
-
